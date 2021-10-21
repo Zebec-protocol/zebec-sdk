@@ -1,6 +1,6 @@
 {
-  "name": "streamfinance-sdk",
-  "version": "1.0.3",
+  "name": "zebecprotocol-sdk",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
