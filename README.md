@@ -1,6 +1,7 @@
 # What is Zebec Protocol?
 
 The Zebec Protocol is a Solana based modern day Payroll solution which allows employers to pay employees every second. Our protocol allows employers to pay team members in crypto, by second, through its continuous settlement mechanism. 
+
 The Zebec Protocol is not just limited to streamlined payments. On top of pay per second, we aim to enable real time liquidity through features such as automated dollar cost averaging, yield farming, crypto IRA,  401k accounts, free fiat off-ramp and custom visa debit card.
 
 # Zebec Program
