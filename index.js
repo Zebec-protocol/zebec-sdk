@@ -16,7 +16,7 @@ const getProvider  = async () => {
 function initTransaction(data){
   const {sender,receiver} = data;
   const pda = Keypair.generate(); // This will generate our program derived address
-  const PROGRAM_ID = '9Ayh2hS3k5fTn6V9Ks7NishUp5Jz19iosK3tYPAcNhsp'; // The Stream program id
+  const PROGRAM_ID = '9Ayh2hS3k5fTn6V9Ks7NishUp5Jz19iosK3tYPAcNhsp'; // Zebec program id
   const instruction = new TransactionInstruction({
     keys: [
       {
