@@ -22,7 +22,7 @@ import { getProvider , initTransaction , withdrawTransaction ,cancelTransaction,
 # Connect to Phantom Wallet.
 
 ```javascript
-getProvider() // This will connect user's wallet to phantom
+getProvider() // This will connect user's wallet to phantom //For more info visit https://docs.phantom.app/
 ```
 
 # Initialize Stream
@@ -41,11 +41,10 @@ const initTransac=()=>{
     sendTransaction(data);
   }
 ```
-After sending this data to the SDK it will generate a new program-derived address (PDA) and all the funds will be locked in PDA and according to the timestamp, funds are streamlined from PDA. 
 
 # Pause Stream
 
-For Pausing streaming payment, the sender should send the sender address, and receiver's address
+For Pausing streaming payment,send the sender address, and receiver's address.
 
 ```javascript
   const pauseTransac = () =>{
@@ -59,7 +58,7 @@ For Pausing streaming payment, the sender should send the sender address, and re
 
 # Resume Stream
 
-For Resuming streaming payment, the sender should send the sender address, and PDA (PDA should be the same which was received during initializing stream)
+For Resuming streaming payment, send the sender address, and receiver's address.
 
 ```javascript
   const resumeTransac = () =>{
@@ -71,7 +70,7 @@ For Resuming streaming payment, the sender should send the sender address, and P
   }
   ```
 # Cancel Transaction
-For cancelling streaming payment, the sender should send the sender and receiver address, amount, and PDA (PDA should be the same which was received during initializing stream)
+For cancelling streaming payment, send the sender and receiver address, amount.
 
 ```javascript
  const cancelTransac=()=>{
@@ -85,7 +84,7 @@ For cancelling streaming payment, the sender should send the sender and receiver
   ```
  # Withdraw Transaction
 
-For withdrawing from streamed payment or streaming payment, the receiver should send the receiver address, amount, and PDA (PDA should be the same which was received during initializing stream)
+For withdrawing from streamed payment or streaming payment, send the sender address , receiver address, and the amount.
 
 ```javascript
   const withdrawTransac=()=>{
