@@ -45,13 +45,13 @@ After sending this data to the SDK it will generate a new program-derived addres
 
 # Pause Stream
 
-For Pausing streaming payment, the sender should send the sender address, and PDA (PDA should be the same which was received during initializing stream)
+For Pausing streaming payment, the sender should send the sender address, and receiver's address
 
 ```javascript
   const pauseTransac = () =>{
     const data = {
-      sender:'HWERzRzAUKpt1yCDBRUz1sxUGiGUkGpc9Y1CP7M1Dvpo',
-      pda: '7Jgv17trtPYUL2nGx8Vg6YxPfGcGwdYMHrPwWD1xMVHV', //Same PDA address which was generated while initializing stream
+      sender: "HWERzRzAUKpt1yCDBRUz1sxUGiGUkGpc9Y1CP7M1Dvpo",
+      receiver: "J75jd3kjsABQSDrEdywcyhmbq8eHDowfW9xtEWsVALy9",
     }
     pauseTransaction(data);
   }
@@ -64,8 +64,8 @@ For Resuming streaming payment, the sender should send the sender address, and P
 ```javascript
   const resumeTransac = () =>{
     const data = {
-      sender:'HWERzRzAUKpt1yCDBRUz1sxUGiGUkGpc9Y1CP7M1Dvpo',
-      pda: '7Jgv17trtPYUL2nGx8Vg6YxPfGcGwdYMHrPwWD1xMVHV', //Same PDA address which was generated while initializing stream
+      sender: "HWERzRzAUKpt1yCDBRUz1sxUGiGUkGpc9Y1CP7M1Dvpo",
+      receiver: "J75jd3kjsABQSDrEdywcyhmbq8eHDowfW9xtEWsVALy9",
     }
     resumeTransaction(data);
   }
@@ -76,10 +76,9 @@ For cancelling streaming payment, the sender should send the sender and receiver
 ```javascript
  const cancelTransac=()=>{
     const data = {
-      sender:'HWERzRzAUKpt1yCDBRUz1sxUGiGUkGpc9Y1CP7M1Dvpo',
-      receiver: 'J75jd3kjsABQSDrEdywcyhmbq8eHDowfW9xtEWsVALy9',
+      sender: "HWERzRzAUKpt1yCDBRUz1sxUGiGUkGpc9Y1CP7M1Dvpo",
+      receiver: "J75jd3kjsABQSDrEdywcyhmbq8eHDowfW9xtEWsVALy9",
       amount: 1,
-      pda: '7Jgv17trtPYUL2nGx8Vg6YxPfGcGwdYMHrPwWD1xMVHV', //Same PDA address which was generated while initializing stream
     }
     cancelTransaction(data);
   }
@@ -91,9 +90,9 @@ For withdrawing from streamed payment or streaming payment, the receiver should 
 ```javascript
   const withdrawTransac=()=>{
     const data = {
-      receiver: 'J75jd3kjsABQSDrEdywcyhmbq8eHDowfW9xtEWsVALy9',
+      sender: "HWERzRzAUKpt1yCDBRUz1sxUGiGUkGpc9Y1CP7M1Dvpo",
+      receiver: "J75jd3kjsABQSDrEdywcyhmbq8eHDowfW9xtEWsVALy9",
       amount: 1,
-      pda: '7Jgv17trtPYUL2nGx8Vg6YxPfGcGwdYMHrPwWD1xMVHV', //Same PDA address which was generated while initializing stream
     }
     withdrawTransaction(data);
   }
