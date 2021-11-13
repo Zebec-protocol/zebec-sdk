@@ -463,11 +463,11 @@ async function initNativeTransaction(data) {
       base58publicKey,
     );
     const validProgramAddress = validProgramAddress_pub[0].toBase58();
-    console.log(validProgramAddress);
+    
 
     // return
     const pda = new Keypair();
-    console.log('native token pda ' + pda.publicKey.toBase58());
+    
   
 
   const instruction = new TransactionInstruction({
@@ -512,14 +512,14 @@ async function initNativeTransaction(data) {
       transaction.feePayer = window.solana.publicKey;
       transaction.partialSign(pda);
       const signed = await window.solana.signTransaction(transaction);
-      console.log(signed);
+      
       const signature = await connection.sendRawTransaction(signed.serialize());
       const finality = "confirmed";
       await connection.confirmTransaction(signature, finality);
       const explorerhash = {
         transactionhash: signature,
       };
-      console.log(explorerhash);
+     
       return explorerhash;
     } catch (e) {
       console.warn(e);
@@ -620,7 +620,7 @@ async function withdrawNativeTransaction(data) {
 }
 
 function encodeWithdrawNativeInstructionData(data) {
-  console.log(data);
+  
   const { amount } = data;
   const layout = BufferLayout.struct([
     BufferLayout.u8("instruction"),
@@ -704,7 +704,7 @@ async function cancelNativeTransaction(data) {
 }
 
 function encodeCancelNativeInstructionData(data) {
-  console.log(data);
+  
   const { amount, start, end } = data;
   const layout = BufferLayout.struct([
     BufferLayout.u8("instruction"),
@@ -778,7 +778,7 @@ async function pauseNativeTransaction(data) {
 }
 
 function encodePauseNativeInstructionData(data) {
-  console.log(data);
+  
   const { amount } = data;
   const layout = BufferLayout.struct([
     BufferLayout.u8("instruction"),
@@ -856,7 +856,7 @@ async function resumeNativeTransaction(data) {
 }
 
 function encodeResumeNativeInstructionData(data) {
-  console.log(data);
+  
   const { amount } = data;
   const layout = BufferLayout.struct([
     BufferLayout.u8("instruction"),
@@ -902,9 +902,6 @@ async function MultiTokenStream(data) {
     const wallet2 = new PublicKey(
       wallettokenaddress.toBase58()
     ); //token address
-    console.log(
-      await (await findAssociatedTokenAddress(wallet, wallet2)).toBase58(),
-    ); //
   }
 
   async function pda_seed_token(data) {
@@ -918,9 +915,6 @@ async function MultiTokenStream(data) {
     const validProgramAddress = validProgramAddress_pub[0].toBase58();
 
     const pda = new Keypair();
-
-    console.log(`Master PDA: ` + validProgramAddress);
-    console.log(`multitoken PDA ` + pda.publicKey.toBase58());
 
 
     const instruction = new TransactionInstruction({
@@ -971,7 +965,7 @@ async function MultiTokenStream(data) {
     const transaction = new Transaction().add(instruction);
     const signerTransac = async () => {
       try {
-        console.log(transaction);
+        
         transaction.recentBlockhash = (
           await connection.getRecentBlockhash()
         ).blockhash;
@@ -979,13 +973,13 @@ async function MultiTokenStream(data) {
         transaction.partialSign(pda);
         const signed = await window.solana.signTransaction(transaction);
         const signature = await connection.sendRawTransaction(signed.serialize());
-        console.log(signature);
+        
         const finality = "confirmed";
         await connection.confirmTransaction(signature, finality);
         const explorerhash = {
           transactionhash: signature,
         };
-        console.log(explorerhash);
+        
         return explorerhash;
       } catch (e) {
         console.warn(e);
@@ -1005,7 +999,7 @@ async function MultiTokenStream(data) {
 }
 
 function encodeMultiTokenStreamInstruction(data) {
-  console.log(data);
+ 
   const { amount, start, end } = data;
   
   const layout = BufferLayout.struct([
@@ -1055,9 +1049,7 @@ async function MultiTokenWithdraw(data) {
     const wallet2 = new PublicKey(
       wallettokenaddress.toBase58()
     ); //token address
-    console.log(
-      await (await findAssociatedTokenAddress(wallet, wallet2)).toBase58(),
-    ); //
+   
   }
 
   async function pda_seed_token(data) {
@@ -1157,13 +1149,13 @@ async function MultiTokenWithdraw(data) {
         transaction.feePayer = window.solana.publicKey;
         const signed = await window.solana.signTransaction(transaction);
         const signature = await connection.sendRawTransaction(signed.serialize());
-        console.log(signature);
+        
         const finality = "confirmed";
         await connection.confirmTransaction(signature, finality);
         const explorerhash = {
           transactionhash: signature,
         };
-        console.log(explorerhash);
+        
         return explorerhash;
       } catch (e) {
         console.warn(e);
@@ -1240,13 +1232,13 @@ async function MultiTokenPause(data) {
         transaction.feePayer = window.solana.publicKey;
         const signed = await window.solana.signTransaction(transaction);
         const signature = await connection.sendRawTransaction(signed.serialize());
-        console.log(signature);
+        
         const finality = "confirmed";
         await connection.confirmTransaction(signature, finality);
         const explorerhash = {
           transactionhash: signature,
         };
-        console.log(explorerhash);
+        
         return explorerhash;
       } catch (e) {
         console.warn(e);
@@ -1322,13 +1314,13 @@ async function MultiTokenResume(data) {
         transaction.feePayer = window.solana.publicKey;
         const signed = await window.solana.signTransaction(transaction);
         const signature = await connection.sendRawTransaction(signed.serialize());
-        console.log(signature);
+        
         const finality = "confirmed";
         await connection.confirmTransaction(signature, finality);
         const explorerhash = {
           transactionhash: signature,
         };
-        console.log(explorerhash);
+       
         return explorerhash;
       } catch (e) {
         console.warn(e);
@@ -1390,9 +1382,7 @@ async function MultiTokenCancel(data) {
     const wallet2 = new PublicKey(
       wallettokenaddress.toBase58()
     ); //token address
-    console.log(
-      await (await findAssociatedTokenAddress(wallet, wallet2)).toBase58(),
-    ); //
+    
   }
 
   async function pda_seed_token(data) {
@@ -1493,13 +1483,13 @@ async function MultiTokenCancel(data) {
         transaction.feePayer = window.solana.publicKey;
         const signed = await window.solana.signTransaction(transaction);
         const signature = await connection.sendRawTransaction(signed.serialize());
-        console.log(signature);
+        
         const finality = "confirmed";
         await connection.confirmTransaction(signature, finality);
         const explorerhash = {
           transactionhash: signature,
         };
-        console.log(explorerhash);
+        
         return explorerhash;
       } catch (e) {
         console.warn(e);
