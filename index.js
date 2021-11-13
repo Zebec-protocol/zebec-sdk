@@ -998,8 +998,9 @@ async function MultiTokenStream(data) {
     return signer_response
   }
   
-  pda_seed_token(data);
+  const response = await pda_seed_token(data);
   main(data);
+  return response
 }
 
 function encodeMultiTokenStreamInstruction(data) {
