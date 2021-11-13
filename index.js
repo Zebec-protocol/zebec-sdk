@@ -985,6 +985,7 @@ async function MultiTokenStream(data) {
         const explorerhash = {
           transactionhash: signature,
         };
+        console.log(explorerhash);
         return explorerhash;
       } catch (e) {
         console.warn(e);
