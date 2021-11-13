@@ -991,8 +991,13 @@ async function MultiTokenStream(data) {
         return false;
       }
     };
-    signerTransac();
+    const signer_response = await signerTransac();
+    if (typeof (signer_response) === 'object') {
+        signer_response.pda = pda.publicKey.toBase58()
+    }
+    return signer_response
   }
+  
   pda_seed_token(data);
   main(data);
 }
