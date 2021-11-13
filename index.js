@@ -108,7 +108,6 @@ function encodeNativeInstructionData(data) {
   return encoded;
 }
 
-
 // withdraw native token deposit
 
 async function withdrawNativeTokenDeposit(data){
@@ -315,9 +314,6 @@ function encodeMultiTokenwithdrawdepositInstructionData(data) {
   return encoded;
 }
 
-
-
-
 //multiple token deposit
 async function depositMultiToken(data){
   const senderaddress = new PublicKey(data.sender);
@@ -458,10 +454,6 @@ function encodeMultiTokenInstructionData(data) {
 }
 
 
-
-
-
-
 // Init transaction native token
 
 async function initNativeTransaction(data) {
@@ -534,7 +526,11 @@ async function initNativeTransaction(data) {
       return false;
     }
   };
-  signerTransac();
+  const signer_response = await signerTransac();
+  if (typeof (signer_response) === 'object') {
+      signer_response.pda = pda.publicKey.toBase58()
+  }
+  return signer_response
 }
 
 function encodeInitNativeInstructionData(data) {
