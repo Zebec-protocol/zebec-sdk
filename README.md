@@ -11,7 +11,7 @@ Mainnet - Coming Soon
 
 # Next Zebec Update
 
-Mainnet USDC , USDT
+Mainnet , USDC , USDT
 
 
 # Install The Zebec Protocol js sdk 
@@ -43,17 +43,6 @@ getProvider() // This will connect user's wallet to phantom //For more info visi
 
 ```
 
-# Deposit Native Token (SOL)
-
-```javascript
-
- const data = {
-      sender: "J75jd3kjsABQSDrEdywcyhmbq8eHDowfW9xtEWsVALy9", // sender defines owner wallet address from where token is deducted.
-      amount: 1,
-    };
-    depositNativeToken(data);
-    
-```
 
 # Deposit Native Token (SOL)
 
