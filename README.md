@@ -141,3 +141,50 @@ const withTransac = async () => {
   const response = await withdrawNativeTransaction(data);
 };
 ```
+
+# Time Stamp Calculation :
+
+Initializing Payment (set)
+Start time ( Unix epoch time)
+End time ( Unix epoch time)
+Pda (array)
+Sender
+amount
+Recipient 
+
+Withdraw (Get request )
+PDA amount 
+Update amount 
+
+Formula starts here (transaction per second basis):
+
+By using a given formula , we can show transactions happening per second basis.
+
+
+End_time - start time = total_seconds
+Amount / total_seconds = amount that needs to be transfer in second (token_transfer_per_second)
+Current_timestamp - end_time = remaining seconds 
+spentSeconds = total_Seconds - remaining_seconds
+tokenGained = token_transfer_per_second*spentSeconds
+
+Example:
+
+start_time = 1632100802
+End_time = 1632188102
+Total_amount = 10
+current_time = 1632144808
+ 
+total_time_in_seconds = end_timestamp - start_timestamp
+= 1632100802-1632100862
+= 60
+
+total_amount_tranfer_per_seconds =  total_amount / total_time_in_seconds 
+=10/60
+= 0.1666666666666667
+
+remaining_time_in_seconds = end_timestamp - current_timestamp 
+
+spent_time_in_seconds = total_time_in_second - remaining_time_in_seconds 
+
+received_token  or sent_token = total_amount_tranfer_per_seconds * spent_time_in_seconds 
+
