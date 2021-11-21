@@ -145,46 +145,46 @@ const withTransac = async () => {
 # Time Stamp Calculation :
 
 Initializing Payment (set) <br/>
-Start time ( Unix epoch time)
-End time ( Unix epoch time)
-Pda (array)
-Sender
-amount
-Recipient 
+Start time ( Unix epoch time) <br/>
+End time ( Unix epoch time) <br/>
+Pda (array) <br/>
+Sender <br/>
+amount <br/>
+Recipient <br/>
 
-Withdraw (Get request )
-PDA amount 
-Update amount 
+Withdraw (Get request ) <br/>
+PDA amount  <br/>
+Update amount <br/>
 
-Formula starts here (transaction per second basis):
+Formula starts here (transaction per second basis):<br/>
 
-By using a given formula , we can show transactions happening per second basis.
+By using a given formula , we can show transactions happening per second basis.<br/>
 
 
-End_time - start time = total_seconds
-Amount / total_seconds = amount that needs to be transfer in second (token_transfer_per_second)
-Current_timestamp - end_time = remaining seconds 
-spentSeconds = total_Seconds - remaining_seconds
-tokenGained = token_transfer_per_second*spentSeconds
+End_time - start time = total_seconds <br/>
+Amount / total_seconds = amount that needs to be transfer in second (token_transfer_per_second) <br/>
+Current_timestamp - end_time = remaining seconds  <br/>
+spentSeconds = total_Seconds - remaining_seconds <br/>
+tokenGained = token_transfer_per_second*spentSeconds <br/>
 
-Example:
+Example: <br/>
 
-start_time = 1632100802
-End_time = 1632188102
-Total_amount = 10
-current_time = 1632144808
+start_time = 1632100802 <br/>
+End_time = 1632188102 <br/>
+Total_amount = 10 <br/>
+current_time = 1632144808 <br/>
  
-total_time_in_seconds = end_timestamp - start_timestamp
-= 1632100802-1632100862
-= 60
+total_time_in_seconds = end_timestamp - start_timestamp <br/>
+= 1632100802-1632100862 <br/>
+= 60 <br/>
 
-total_amount_tranfer_per_seconds =  total_amount / total_time_in_seconds 
-=10/60
-= 0.1666666666666667
+total_amount_tranfer_per_seconds =  total_amount / total_time_in_seconds <br/>
+=10/60 <br/>
+= 0.1666666666666667 <br/>
 
-remaining_time_in_seconds = end_timestamp - current_timestamp 
+remaining_time_in_seconds = end_timestamp - current_timestamp <br/>
 
-spent_time_in_seconds = total_time_in_second - remaining_time_in_seconds 
+spent_time_in_seconds = total_time_in_second - remaining_time_in_seconds <br/>
 
-received_token  or sent_token = total_amount_tranfer_per_seconds * spent_time_in_seconds 
+received_token  or sent_token = total_amount_tranfer_per_seconds * spent_time_in_seconds <br/>
 
