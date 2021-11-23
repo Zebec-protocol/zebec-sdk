@@ -391,6 +391,7 @@ async function withdrawMultiTokenDeposit(data) {
           await connection.confirmTransaction(signature, finality);
           const explorerhash = {
             transactionhash: signature,
+            pda: pda
           };
   
           return explorerhash;
