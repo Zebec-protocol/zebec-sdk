@@ -9,6 +9,7 @@ const {
   const BufferLayout = require("buffer-layout");
   const spl = require("@solana/spl-token");
   const { TOKEN_PROGRAM_ID } = require("@solana/spl-token");
+  const { constants } = require('./constants')
   
   const { base58publicKey, PROGRAM_ID, connection, SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID, wallettokenaddress} = constants;
 
