@@ -390,8 +390,7 @@ async function withdrawMultiTokenDeposit(data) {
           const finality = "confirmed";
           await connection.confirmTransaction(signature, finality);
           const explorerhash = {
-            transactionhash: signature,
-            pda: pda
+            transactionhash: signature
           };
   
           return explorerhash;
@@ -411,7 +410,7 @@ async function withdrawMultiTokenDeposit(data) {
         };
       }
       return {
-        data: { ...signer_response },
+        data: { ...signer_response, pda: pda.publicKey.toBase58() },
         status: "success",
         message: "Stream started",
       };
