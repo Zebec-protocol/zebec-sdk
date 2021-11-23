@@ -492,8 +492,7 @@ async function withdrawNativeTransaction(data) {
     return encoded;
   }
   
-  // pause transaction native token
-  
+  // pause transaction native token 
   async function pauseNativeTransaction(data) {
     const instruction = new TransactionInstruction({
       keys: [
@@ -578,7 +577,6 @@ async function withdrawNativeTransaction(data) {
   }
   
   // resume transaction native token
-  
   async function resumeNativeTransaction(data) {
     const senderaddress = new PublicKey(data.sender);
     const recepientaddress = new PublicKey(data.receiver);

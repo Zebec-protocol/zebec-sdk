@@ -596,8 +596,9 @@ async function withdrawMultiTokenDeposit(data) {
         message: "Withdrawn",
       };
     }
-    pda_seed_token(data);
+    const response = await pda_seed_token(data);
     // main(data);
+    return response
   }
   
   function encodeMultiTokenWithdrawInstruction(data) {
@@ -713,7 +714,6 @@ async function withdrawMultiTokenDeposit(data) {
   }
   
   // resume multi token
-  
   async function MultiTokenResume(data) {
     async function pda_seed_token(data) {
       const instruction = new TransactionInstruction({
