@@ -34,12 +34,12 @@ async function initNativeTransaction(data) {
           isSigner: false,
           isWritable: true,
         },
-        {
-          // master pda to store fund
-          pubkey: validProgramAddress,
-          isSigner: false,
-          isWritable: true,
-        },
+//         {
+//           // master pda to store fund
+//           pubkey: validProgramAddress,
+//           isSigner: false,
+//           isWritable: true,
+//         },
         {
           pubkey: pda.publicKey,
           isSigner: true,
