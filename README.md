@@ -6,7 +6,7 @@ The Zebec Protocol is not just limited to streamlined payments. On top of pay pe
 
 # Zebec Program
 
-Devnet - 9Ayh2hS3k5fTn6V9Ks7NishUp5Jz19iosK3tYPAcNhsp
+Devnet - 7FNWTfCo3AyRBFCvr49daqKHehdn2GjNgpjuTsqy5twk
 Mainnet - Coming Soon
 
 # Next Zebec Update
