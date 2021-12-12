@@ -188,3 +188,7 @@ spent_time_in_seconds = total_time_in_second - remaining_time_in_seconds <br/>
 
 received_token  or sent_token = total_amount_tranfer_per_seconds * spent_time_in_seconds <br/>
 
+
+
+# Note : This SDK is more compatible with phantom wallet.
+
