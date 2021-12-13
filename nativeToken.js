@@ -416,6 +416,10 @@ async function cancelNativeTransaction(data) {
     [senderaddress.toBuffer()],
     base58publicKey
   );
+  let withdraw_data = await PublicKey.findProgramAddress(
+    [Buffer.from(stringofwithdraw), senderaddress.toBuffer()],
+    base58publicKey
+  );
   const validProgramAddress = validProgramAddress_pub[0].toBase58();
   let withdraw_data = await PublicKey.findProgramAddress(
     [Buffer.from(stringofwithdraw), senderaddress.toBuffer()],
@@ -703,3 +707,4 @@ module.exports.nativeToken = {
   pauseNativeTransaction,
   resumeNativeTransaction,
 };
+
