@@ -416,6 +416,10 @@ async function cancelNativeTransaction(data) {
     [senderaddress.toBuffer()],
     base58publicKey
   );
+  let withdraw_data = await PublicKey.findProgramAddress(
+    [Buffer.from(stringofwithdraw), senderaddress.toBuffer()],
+    base58publicKey
+  );
   const validProgramAddress = validProgramAddress_pub[0].toBase58();
 
   const instruction = new TransactionInstruction({
@@ -440,6 +444,11 @@ async function cancelNativeTransaction(data) {
       {
         // data storage pda from database
         pubkey: data.pda,
+        isSigner: false,
+        isWritable: true,
+      },
+      {
+        pubkey: withdraw_data[0].toBase58(),
         isSigner: false,
         isWritable: true,
       },
@@ -694,3 +703,4 @@ module.exports.nativeToken = {
   pauseNativeTransaction,
   resumeNativeTransaction,
 };
+
