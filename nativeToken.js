@@ -421,10 +421,7 @@ async function cancelNativeTransaction(data) {
     base58publicKey
   );
   const validProgramAddress = validProgramAddress_pub[0].toBase58();
-  let withdraw_data = await PublicKey.findProgramAddress(
-    [Buffer.from(stringofwithdraw), senderaddress.toBuffer()],
-    base58publicKey
-  );
+  
 
   const instruction = new TransactionInstruction({
     keys: [
