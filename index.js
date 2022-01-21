@@ -1,5 +1,5 @@
-const {nativeToken} = require("./nativeToken");
-const {multiToken} = require("./multiToken");
+const {nativeToken} = require("./stream/nativetoken/nativeToken");
+const {multiToken} = require("./stream/multitoken/multiToken");
 
 const {
   initNativeTransaction,

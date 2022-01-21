@@ -8,14 +8,13 @@ const {
 } = require("@solana/web3.js");
 const BufferLayout = require("buffer-layout");
 const spl = require("@solana/spl-token");
-const { constants } = require("./constants");
-
+const { constants } = require("../../constants");
 const { base58publicKey, PROGRAM_ID, connection, stringofwithdraw } = constants;
 
 // Init transaction native token
 async function initNativeTransaction(data) {
   const senderaddress = new PublicKey(data.sender);
-  let withdraw_data = await PublicKey.findProgramAddress(
+  const withdraw_data = await PublicKey.findProgramAddress(
     [Buffer.from(stringofwithdraw), senderaddress.toBuffer()],
     base58publicKey
   );
@@ -123,7 +122,7 @@ function encodeInitNativeInstructionData(data) {
 //native token deposit
 async function depositNativeToken(data) {
   const senderaddress = new PublicKey(data.sender);
-  let validProgramAddress_pub = await PublicKey.findProgramAddress(
+  const validProgramAddress_pub = await PublicKey.findProgramAddress(
     [senderaddress.toBuffer()],
     base58publicKey
   );
@@ -210,13 +209,13 @@ function encodeNativeInstructionData(data) {
 // withdraw native token deposit
 async function withdrawNativeTokenDeposit(data) {
   const senderaddress = new PublicKey(data.sender);
-  let validProgramAddress_pub = await PublicKey.findProgramAddress(
+  const validProgramAddress_pub = await PublicKey.findProgramAddress(
     [senderaddress.toBuffer()],
     base58publicKey
   );
   const validProgramAddress = validProgramAddress_pub[0].toBase58();
 
-  let withdraw_data = await PublicKey.findProgramAddress(
+  const withdraw_data = await PublicKey.findProgramAddress(
     [Buffer.from(stringofwithdraw), senderaddress.toBuffer()],
     base58publicKey
   );
@@ -306,14 +305,14 @@ function encodeNativeWithdrawDepositInstructionData(data) {
 //withdraw transaction native token
 async function withdrawNativeTransaction(data) {
   const senderaddress = new PublicKey(data.sender);
-  let validProgramAddress_pub = await PublicKey.findProgramAddress(
+  const validProgramAddress_pub = await PublicKey.findProgramAddress(
     [senderaddress.toBuffer()],
     base58publicKey
   );
 
   const validProgramAddress = validProgramAddress_pub[0].toBase58();
 
-  let withdraw_data = await PublicKey.findProgramAddress(
+  const withdraw_data = await PublicKey.findProgramAddress(
     [Buffer.from(stringofwithdraw), senderaddress.toBuffer()],
     base58publicKey
   );
@@ -412,11 +411,11 @@ function encodeWithdrawNativeInstructionData(data) {
 
 async function cancelNativeTransaction(data) {
   const senderaddress = new PublicKey(data.sender);
-  let validProgramAddress_pub = await PublicKey.findProgramAddress(
+  const validProgramAddress_pub = await PublicKey.findProgramAddress(
     [senderaddress.toBuffer()],
     base58publicKey
   );
-  let withdraw_data = await PublicKey.findProgramAddress(
+  const withdraw_data = await PublicKey.findProgramAddress(
     [Buffer.from(stringofwithdraw), senderaddress.toBuffer()],
     base58publicKey
   );
@@ -612,7 +611,7 @@ async function resumeNativeTransaction(data) {
 
   //sender and receiver address
 
-  let sender_recipient_pub = await PublicKey.findProgramAddress(
+  const sender_recipient_pub = await PublicKey.findProgramAddress(
     [senderaddress.toBuffer(), recepientaddress.toBuffer()],
     base58publicKey
   );

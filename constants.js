@@ -13,7 +13,7 @@ const wallettokenaddress = new PublicKey(
   "2ibSirDWk5P68ZKmQQSxUMtiWQFRuanpPfMfaYzxgSRv"
 );
 
-let stringofwithdraw = "withdraw_sol";
+const stringofwithdraw = "withdraw_sol";
 
 module.exports.constants = {
   base58publicKey,
