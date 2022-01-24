@@ -15,6 +15,8 @@ const wallettokenaddress = new PublicKey(
 
 const stringofwithdraw = "withdraw_sol";
 
+const FEEADDRESS = "EsDV3m3xUZ7g8QKa1kFdbZT18nNz8ddGJRcTK84WDQ7k";
+
 module.exports.constants = {
   base58publicKey,
   PROGRAM_ID,
@@ -22,5 +24,5 @@ module.exports.constants = {
   connection,
   SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID,
   wallettokenaddress,
-  stringofwithdraw
+  stringofwithdraw,
 };

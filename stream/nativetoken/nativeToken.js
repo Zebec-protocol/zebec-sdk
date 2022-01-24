@@ -9,7 +9,13 @@ const {
 const BufferLayout = require("buffer-layout");
 const spl = require("@solana/spl-token");
 const { constants } = require("../../constants");
-const { base58publicKey, PROGRAM_ID, connection, stringofwithdraw } = constants;
+const {
+  base58publicKey,
+  PROGRAM_ID,
+  connection,
+  stringofwithdraw,
+  FEEADDRESS,
+} = constants;
 
 // Init transaction native token
 async function initNativeTransaction(data) {
@@ -351,6 +357,11 @@ async function withdrawNativeTransaction(data) {
         isSigner: false,
         isWritable: false,
       },
+      {
+        pubkey: new PublicKey(FEEADDRESS),
+        isSigner: false,
+        isWritable: true,
+      },
     ],
     programId: new PublicKey(PROGRAM_ID),
     data: encodeWithdrawNativeInstructionData(data),
@@ -420,7 +431,6 @@ async function cancelNativeTransaction(data) {
     base58publicKey
   );
   const validProgramAddress = validProgramAddress_pub[0].toBase58();
-  
 
   const instruction = new TransactionInstruction({
     keys: [
@@ -456,6 +466,11 @@ async function cancelNativeTransaction(data) {
         pubkey: SystemProgram.programId, //system program required to make a transfer
         isSigner: false,
         isWritable: false,
+      },
+      {
+        pubkey: new PublicKey(FEEADDRESS),
+        isSigner: false,
+        isWritable: true,
       },
     ],
     programId: new PublicKey(PROGRAM_ID),
@@ -703,4 +718,3 @@ module.exports.nativeToken = {
   pauseNativeTransaction,
   resumeNativeTransaction,
 };
-

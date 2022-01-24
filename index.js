@@ -1,5 +1,7 @@
 const {nativeToken} = require("./stream/nativetoken/nativeToken");
 const {multiToken} = require("./stream/multitoken/multiToken");
+const {constants} = require("./constants");
+
 
 const {
   initNativeTransaction,
@@ -49,3 +51,5 @@ module.exports.MultiTokenCancel = MultiTokenCancel;
 
 module.exports.withdrawNativeTokenDeposit = withdrawNativeTokenDeposit;
 module.exports.withdrawMultiTokenDeposit = withdrawMultiTokenDeposit;
+
+module.exports.constants = constants;
