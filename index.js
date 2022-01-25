@@ -1,5 +1,6 @@
 const {nativeToken} = require("./stream/nativetoken/nativeToken");
 const {multiToken} = require("./stream/multitoken/multiToken");
+const {constants} = require("./constants");
 
 const {
   initNativeTransaction,
@@ -20,6 +21,8 @@ const {
   depositMultiToken,
   withdrawMultiTokenDeposit
 } =multiToken
+
+
 
 const getProvider = async () => {
   const isPhantomInstalled = (await window.solana) && window.solana.isPhantom;
@@ -49,3 +52,5 @@ module.exports.MultiTokenCancel = MultiTokenCancel;
 
 module.exports.withdrawNativeTokenDeposit = withdrawNativeTokenDeposit;
 module.exports.withdrawMultiTokenDeposit = withdrawMultiTokenDeposit;
+module.exports.constants = constants;
+
