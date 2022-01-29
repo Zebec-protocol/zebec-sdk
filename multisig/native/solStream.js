@@ -1,23 +1,19 @@
-
 const {
   PublicKey,
   Transaction,
   TransactionInstruction,
   SystemProgram,
   Keypair,
-} =require( "@solana/web3.js");
-const { serialize } =require( "borsh");
-const { extendBorsh } =require( "../../utils/borsh");
+} = require("@solana/web3.js");
+const { serialize } = require("borsh");
+const { extendBorsh } = require("../../utils/borsh");
 
-const { PROGRAM_ID } =require( "../../constants");
-const { InitSolStreamSchema, Signer, SolStream } =require( "./schema");
-
+const { PROGRAM_ID } = require("../../constants");
+const { InitSolStreamSchema, Signer, SolStream } = require("./schema");
 
 extendBorsh();
 
-export const initStreamMultiSig = async (
-  data,
-) => {
+async function initStreamMultiSig(data) {
   const pda = new Keypair();
 
   const modData = {
@@ -69,55 +65,50 @@ export const initStreamMultiSig = async (
 
   const transaction = new Transaction().add(txInstruction);
 
+  const signerTransac = async () => {
+    try {
+      transaction.recentBlockhash = (
+        await connection.getRecentBlockhash()
+      ).blockhash;
 
-  const signerTransac = async()=>{
+      transaction.feePayer = publicKey;
+      transaction.partialSign(pda);
+      const signedTransaction = await signTransaction(transaction);
 
-  try {
-    transaction.recentBlockhash = (
-      await connection.getRecentBlockhash()
-    ).blockhash;
-
-    transaction.feePayer = publicKey;
-    transaction.partialSign(pda);
-    const signedTransaction = await signTransaction(transaction);
-
-    const signature = await connection.sendRawTransaction(
-      signedTransaction.serialize()
-    );
-    const finality = "confirmed";
-    await connection.confirmTransaction(signature, finality);
-    const explorerhash = {
-      transactionhash:signature,
-    };
-    return explorerhash;
-  } catch (e) {
-    console.warn(e);
-    return{
-      transactionhash:null,
+      const signature = await connection.sendRawTransaction(
+        signedTransaction.serialize()
+      );
+      const finality = "confirmed";
+      await connection.confirmTransaction(signature, finality);
+      const explorerhash = {
+        transactionhash: signature,
+      };
+      return explorerhash;
+    } catch (e) {
+      console.warn(e);
+      return {
+        transactionhash: null,
+      };
     }
+  };
+
+  const signer_response = await signerTransac();
+  if (signer_response.transactionhash === null) {
+    return {
+      status: "error",
+      message: "An error has occurred.",
+      data: null,
+    };
   }
-}
-
-
-const signer_response = await signerTransac();
-if (signer_response.transactionhash === null) {
   return {
-    status: "error",
-    message: "An error has occurred.",
-    data: null,
+    status: "success",
+    message: "Transaction Initiated",
+    data: {
+      ...signer_response,
+    },
   };
 }
-return {
-  status: "success",
-  message: "Transaction Initiated",
-  data: {
-    ...signer_response,
-  },
+
+module.exports.initmultisig = {
+  initStreamMultiSig,
 };
-
-};
-
-
-module.exports.initStreamMultiSig={
-  initStreamMultiSig
-}

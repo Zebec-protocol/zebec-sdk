@@ -10,7 +10,7 @@ const { extendBorsh } = require("../../utils/borsh");
 const { Cancel, CancelSchema } = require("./schema");
 
 extendBorsh();
-export async function cancelStreamMultiSig(data) {
+async function cancelStreamMultiSig(data) {
   const stringOfWithdraw = "withdraw_multisig_sol";
   const withdraw_data = await PublicKey.findProgramAddress(
     [
@@ -108,6 +108,6 @@ export async function cancelStreamMultiSig(data) {
   };
 }
 
-moduel.exports.cancelStreamMultiSig = {
+module.exports.cancelstreamultisign = {
   cancelStreamMultiSig,
 };

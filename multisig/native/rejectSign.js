@@ -10,9 +10,9 @@ const { extendBorsh } =require( "../../utils/borsh");
 
 extendBorsh();
 
-export const rejectSigStreamMultisig = async (
+ async function rejectSigStreamMultisig  (
   data,
-) => {
+) {
   const instruction = new TransactionInstruction({
     keys: [
       {
@@ -78,6 +78,6 @@ export const rejectSigStreamMultisig = async (
 };
 
 
-module.exports.rejectSigStreamMultisig={
+module.exports.rejectmultisig={
   rejectSigStreamMultisig
 }

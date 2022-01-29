@@ -11,7 +11,7 @@ const { extendBorsh } = require("../../utils/borsh");
 
 extendBorsh();
 
-export const depositNativeVault = async (data) => {
+  async function depositNativeVault  (data)  {
   const senderaddress = new PublicKey(data.sender);
   const pda = data.multisig_pda;
   const stringOfWithdraw = "withdraw_sol";
@@ -70,7 +70,7 @@ export const depositNativeVault = async (data) => {
   });
   const transaction = new Transaction().add(instruction);
 
-  const signer_response = async () => {
+  const signerTransac = async () => {
     try {
       transaction.recentBlockhash = (
         await connection.getRecentBlockhash()
@@ -109,6 +109,6 @@ export const depositNativeVault = async (data) => {
   };
 };
 
-module.exports.depositNativeVault = {
+module.exports.depositmultisig = {
   depositNativeVault,
 };

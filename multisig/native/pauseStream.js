@@ -2,17 +2,15 @@ const {
   PublicKey,
   Transaction,
   TransactionInstruction,
-} =require( "@solana/web3.js");
-const { PROGRAM_ID } =require( "../../components/constants/ids");
-const { serialize } =require( "borsh");
-const { extendBorsh } =require( "../../utils/borsh");
-const { Pause, PauseSchema } =require( "./schema");
+} = require("@solana/web3.js");
+const { PROGRAM_ID } = require("../../constants");
+const { serialize } = require("borsh");
+const { extendBorsh } = require("../../utils/borsh");
+const { Pause, PauseSchema } = require("./schema");
 
 extendBorsh();
 
-export async function pauseStreamMultisig(
-  data,
-) {
+ async function pauseStreamMultisig(data) {
   const instruction = new TransactionInstruction({
     keys: [
       {
@@ -41,7 +39,7 @@ export async function pauseStreamMultisig(
   });
   const transaction = new Transaction().add(instruction);
 
-  const signerTransac = async () =>{
+  const signerTransac = async () => {
     try {
       transaction.recentBlockhash = (
         await connection.getRecentBlockhash()
@@ -52,33 +50,30 @@ export async function pauseStreamMultisig(
       const finality = "confirmed";
       await connection.confirmTransaction(signature, finality);
     } catch (e) {
-     console.warn(e);
-     return{
-       transactionhash:null,
-     }
+      console.warn(e);
+      return {
+        transactionhash: null,
+      };
     }
-    
-  }
+  };
 
   const signer_response = await signerTransac();
-if (signer_response.transactionhash === null) {
+  if (signer_response.transactionhash === null) {
+    return {
+      status: "error",
+      message: "An error has occurred.",
+      data: null,
+    };
+  }
   return {
-    status: "error",
-    message: "An error has occurred.",
-    data: null,
+    status: "success",
+    message: "Stream Paused",
+    data: {
+      ...signer_response,
+    },
   };
 }
-return {
-  status: "success",
-  message: "Stream Paused",
-  data: {
-    ...signer_response,
-  },
+
+module.exports.pausemultisig = {
+  pauseStreamMultisig,
 };
-  
-}
-
-
-module.exports={
-  pauseStreamMultisig
-}

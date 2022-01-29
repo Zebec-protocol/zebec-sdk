@@ -106,6 +106,6 @@ async function createVault(data) {
   };
 }
 
-module.exports.createVault = {
+module.exports.createvaultmultisig = {
   createVault,
 };

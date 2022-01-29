@@ -2,18 +2,15 @@ const {
   PublicKey,
   Transaction,
   TransactionInstruction,
-} =require( "@solana/web3.js");
-const { RejectInstantStream, RejectInstantStreamSchema } =require( "./schema");
-const { serialize } =require( "borsh");
-const { PROGRAM_ID } =require( "../../constants");
-const { extendBorsh } =require( "../../utils/borsh");
-
+} = require("@solana/web3.js");
+const { RejectInstantStream, RejectInstantStreamSchema } = require("./schema");
+const { serialize } = require("borsh");
+const { PROGRAM_ID } = require("../../constants");
+const { extendBorsh } = require("../../utils/borsh");
 
 extendBorsh();
 
-export const rejectInstantNative = async (
-  data,
-) => {
+async function rejectInstantNative(data) {
   const instruction = new TransactionInstruction({
     keys: [
       {
@@ -38,7 +35,7 @@ export const rejectInstantNative = async (
     data: serialize(RejectInstantStreamSchema, new RejectInstantStream(data)),
   });
   const transaction = new Transaction().add(instruction);
-  const signerTransac = async =()=>{
+  const signerTransac = async () => {
     try {
       transaction.recentBlockhash = (
         await connection.getRecentBlockhash()
@@ -48,35 +45,31 @@ export const rejectInstantNative = async (
       const signature = await connection.sendRawTransaction(signed.serialize());
       const finality = "confirmed";
       await connection.confirmTransaction(signature, finality);
-     
     } catch (e) {
       console.warn(e);
-      return{
-        transactionhash:null,
-      }
+      return {
+        transactionhash: null,
+      };
     }
-
-  }
+  };
 
   const signer_response = await signerTransac();
-if (signer_response.transactionhash === null) {
+  if (signer_response.transactionhash === null) {
+    return {
+      status: "error",
+      message: "An error has occurred.",
+      data: null,
+    };
+  }
   return {
-    status: "error",
-    message: "An error has occurred.",
-    data: null,
+    status: "success",
+    message: "Transaction Rejected",
+    data: {
+      ...signer_response,
+    },
   };
 }
-return {
-  status: "success",
-  message: "Transaction Rejected",
-  data: {
-    ...signer_response,
-  },
-};
-  
-};
 
-
-moduel.exports.rejectInstantNative={
-  rejectInstantNative
-}
+module.exports.rejectinstant = {
+  rejectInstantNative,
+};

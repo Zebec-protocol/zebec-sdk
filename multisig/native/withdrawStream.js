@@ -10,7 +10,7 @@ const { extendBorsh } = require("../../utils/borsh");
 const { WithdrawStreamed, WithdrawStreamedSchema } = require("./schema");
 
 extendBorsh();
-export async function withdrawStreamMultiSig(data) {
+ async function withdrawStreamMultiSig(data) {
   const stringOfWithdraw = "withdraw_multisig_sol";
   const withdraw_data = await PublicKey.findProgramAddress(
     [
@@ -106,6 +106,6 @@ export async function withdrawStreamMultiSig(data) {
   };
 }
 
-module.exports.withdrawStreamMultiSig = {
+module.exports.withdrawmultisig = {
   withdrawStreamMultiSig,
 };

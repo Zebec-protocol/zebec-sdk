@@ -10,7 +10,7 @@ const { Resume, ResumeSchema } =require( "./schema");
 
 extendBorsh();
 
-export async function resumeStreamMultisig(
+ async function resumeStreamMultisig(
   data,
 ) {
   const instruction = new TransactionInstruction({
@@ -82,6 +82,6 @@ return {
 
 }
 
-module.exports.resumeStreamMultisig={
+module.exports.resumemultisig={
   resumeStreamMultisig
 }
