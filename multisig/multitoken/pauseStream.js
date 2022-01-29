@@ -12,12 +12,6 @@ const { Pause, PauseSchema } = require("./schema");
 extendBorsh();
 export async function pauseStreamToken(
   data,
-  transactionId,
-  safeId,
-  connection,
-  publicKey,
-  signTransaction,
-  dispatch
 ) {
   const instruction = new TransactionInstruction({
     keys: [

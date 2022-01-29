@@ -13,12 +13,6 @@ extendBorsh();
 
 export const multiSigToken = async (
   data,
-  transactionId,
-  safeId,
-  connection,
-  publicKey,
-  signTransaction,
-  dispatch
 ) => {
   const txData = {
     signed_by: new Signer({ address: new PublicKey(data.sender), counter: 0 }),

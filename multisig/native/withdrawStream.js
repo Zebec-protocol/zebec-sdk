@@ -3,20 +3,14 @@ const {
   SystemProgram,
   Transaction,
   TransactionInstruction,
-} =require( "@solana/web3.js");
-const {
-  base58publicKey,
-  FEEADDRESS,
-  PROGRAM_ID,
-} =require( "../../constants");
-const { serialize } =require( "borsh");
-const { extendBorsh } =require( "../../utils/borsh");
-const { WithdrawStreamed, WithdrawStreamedSchema } =require( "./schema");
+} = require("@solana/web3.js");
+const { base58publicKey, FEEADDRESS, PROGRAM_ID } = require("../../constants");
+const { serialize } = require("borsh");
+const { extendBorsh } = require("../../utils/borsh");
+const { WithdrawStreamed, WithdrawStreamedSchema } = require("./schema");
 
 extendBorsh();
-export async function withdrawStreamedBalance(
-  data,
-) {
+export async function withdrawStreamMultiSig(data) {
   const stringOfWithdraw = "withdraw_multisig_sol";
   const withdraw_data = await PublicKey.findProgramAddress(
     [
@@ -77,7 +71,7 @@ export async function withdrawStreamedBalance(
   });
   const transaction = new Transaction().add(instruction);
 
-  const signerTransac = async()=>{
+  const signerTransac = async () => {
     try {
       transaction.recentBlockhash = (
         await connection.getRecentBlockhash()
@@ -87,29 +81,31 @@ export async function withdrawStreamedBalance(
       const signature = await connection.sendRawTransaction(signed.serialize());
       const finality = "confirmed";
       const response = await connection.confirmTransaction(signature, finality);
-     
     } catch (e) {
       console.warn(e);
-      return{
-        transactionhash:null,
-      }
+      return {
+        transactionhash: null,
+      };
     }
-  }
+  };
 
   const signer_response = await signerTransac();
-if (signer_response.transactionhash === null) {
+  if (signer_response.transactionhash === null) {
+    return {
+      status: "error",
+      message: "An error has occurred.",
+      data: null,
+    };
+  }
   return {
-    status: "error",
-    message: "An error has occurred.",
-    data: null,
+    status: "success",
+    message: "Withdrawn",
+    data: {
+      ...signer_response,
+    },
   };
 }
-return {
-  status: "success",
-  message: "Withdrawn",
-  data: {
-    ...signer_response,
-  },
+
+module.exports.withdrawStreamMultiSig = {
+  withdrawStreamMultiSig,
 };
-  
-}

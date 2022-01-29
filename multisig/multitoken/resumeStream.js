@@ -13,12 +13,6 @@ const { Resume, ResumeSchema } = require("./schema");
 extendBorsh();
 export async function resumeStreamToken(
   data,
-  transactionId,
-  safeId,
-  connection,
-  publicKey,
-  signTransaction,
-  dispatch
 ) {
   const instruction = new TransactionInstruction({
     keys: [

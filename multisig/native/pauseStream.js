@@ -10,7 +10,7 @@ const { Pause, PauseSchema } =require( "./schema");
 
 extendBorsh();
 
-export async function pauseStream(
+export async function pauseStreamMultisig(
   data,
 ) {
   const instruction = new TransactionInstruction({
@@ -76,4 +76,9 @@ return {
   },
 };
   
+}
+
+
+module.exports={
+  pauseStreamMultisig
 }

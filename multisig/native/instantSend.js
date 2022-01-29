@@ -11,7 +11,7 @@ const { InstantStream, InstantStreamSchema, Signer } =require( "./schema");
 
 extendBorsh();
 
-export const instantSend = async (
+export const instantSendNative = async (
   data,
 ) => {
   const modData = {
@@ -109,3 +109,8 @@ return {
 
 
 };
+
+
+module.exports.instantSendNative={
+  instantSendNative
+}

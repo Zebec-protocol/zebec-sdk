@@ -23,11 +23,6 @@ const { TOKEN_PROGRAM_ID } = require("@solana/spl-token");
 extendBorsh();
 export async function withdrawStreamedBalanceToken(
   data,
-  connection,
-  signTransaction,
-  publicKey,
-  dispatch,
-  backendData
 ) {
   const recipient = new PublicKey(data.receiver); // recepient address
   const stringOfWithdraw = "withdraw_multisig_sol";

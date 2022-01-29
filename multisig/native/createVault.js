@@ -11,9 +11,7 @@ const { extendBorsh } = require("../../utils/borsh");
 
 extendBorsh();
 
-async function createVault  (
-  data,
-) {
+async function createVault(data) {
   const { sender, owners, min_confirmation_required } = data;
   const signers = [];
   const pda = new Keypair();
@@ -66,44 +64,48 @@ async function createVault  (
   });
 
   const transaction = new Transaction().add(txInstruction);
-  const signerTransac = async () =>{
-  try {
-    transaction.recentBlockhash = (
-      await connection.getRecentBlockhash()
-    ).blockhash;
-    transaction.feePayer = publicKey;
-    transaction.partialSign(pda);
-    const signed = await signTransaction(transaction);
-    const signature = await connection.sendRawTransaction(signed.serialize());
-    const finality = "confirmed";
-    await connection.confirmTransaction(signature, finality);
-    const explorerhash = {
-      transactionhash:signature,
-    };
-    return explorerhash;
-  } catch (e) {
-   console.warn(e);
-   return{
-     transactionhash:null,
-   }
+  const signerTransac = async () => {
+    try {
+      transaction.recentBlockhash = (
+        await connection.getRecentBlockhash()
+      ).blockhash;
+      transaction.feePayer = publicKey;
+      transaction.partialSign(pda);
+      const signed = await signTransaction(transaction);
+      const signature = await connection.sendRawTransaction(signed.serialize());
+      const finality = "confirmed";
+      await connection.confirmTransaction(signature, finality);
+      const explorerhash = {
+        transactionhash: signature,
+      };
+      return explorerhash;
+    } catch (e) {
+      console.warn(e);
+      return {
+        transactionhash: null,
+      };
+    }
   };
-};
 
-const signer_response = await signerTransac();
-if (signer_response.transactionhash === null) {
+  const signer_response = await signerTransac();
+  if (signer_response.transactionhash === null) {
+    return {
+      status: "error",
+      message: "An error has occurred.",
+      data: null,
+    };
+  }
   return {
-    status: "error",
-    message: "An error has occurred.",
-    data: null,
+    status: "success",
+    message: "Vault Created",
+    data: {
+      ...signer_response,
+      Vault_pda: pda.publicKey.toBase58(),
+      multisig_vault: multisignvault[0].toBase58(),
+    },
   };
 }
-return {
-  status: "success",
-  message: "Vault Created",
-  data: {
-    ...signer_response,
-    Vault_pda: pda.publicKey.toBase58(),
-    multisig_vault: multisignvault[0].toBase58(),
-  },
+
+module.exports.createVault = {
+  createVault,
 };
-}

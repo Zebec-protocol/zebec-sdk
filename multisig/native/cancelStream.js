@@ -4,20 +4,13 @@ const {
   Transaction,
   TransactionInstruction,
 } = require("@solana/web3.js");
-const {
-  base58publicKey,
-  FEEADDRESS,
-  PROGRAM_ID,
-} = require("../../constants");
+const { base58publicKey, FEEADDRESS, PROGRAM_ID } = require("../../constants");
 const { serialize } = require("borsh");
 const { extendBorsh } = require("../../utils/borsh");
 const { Cancel, CancelSchema } = require("./schema");
 
-
 extendBorsh();
-export async function cancelStream(
-  data,
-) {
+export async function cancelStreamMultiSig(data) {
   const stringOfWithdraw = "withdraw_multisig_sol";
   const withdraw_data = await PublicKey.findProgramAddress(
     [
@@ -74,7 +67,7 @@ export async function cancelStream(
     data: serialize(CancelSchema, new Cancel(data)),
   });
   const transaction = new Transaction().add(instruction);
-  const signerTransac = async()=>{
+  const signerTransac = async () => {
     try {
       transaction.recentBlockhash = (
         await connection.getRecentBlockhash()
@@ -85,35 +78,36 @@ export async function cancelStream(
       const finality = "confirmed";
       await connection.confirmTransaction(signature, finality);
       const explorerhash = {
-        transactionhash:signature,
+        transactionhash: signature,
       };
       return explorerhash;
     } catch (e) {
       console.warn(e);
-      return{
-        transactionhash:null,
-      }
+      return {
+        transactionhash: null,
+      };
     }
-  }
-
+  };
 
   const signer_response = await signerTransac();
-if (signer_response.transactionhash === null) {
+  if (signer_response.transactionhash === null) {
+    return {
+      status: "error",
+      message: "An error has occurred.",
+      data: null,
+    };
+  }
   return {
-    status: "error",
-    message: "An error has occurred.",
-    data: null,
+    status: "success",
+    message: "Stream Canceled",
+    data: {
+      ...signer_response,
+      Vault_pda: pda.publicKey.toBase58(),
+      multisig_vault: multisignvault[0].toBase58(),
+    },
   };
 }
-return {
-  status: "success",
-  message: "Stream Canceled",
-  data: {
-    ...signer_response,
-    Vault_pda: pda.publicKey.toBase58(),
-    multisig_vault: multisignvault[0].toBase58(),
-  },
+
+moduel.exports.cancelStreamMultiSig = {
+  cancelStreamMultiSig,
 };
-  
- 
-}

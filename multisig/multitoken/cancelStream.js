@@ -22,11 +22,6 @@ extendBorsh();
 
 export async function cancelStreamToken(
   data,
-  transactionId,
-  safeId,
-  connection,
-  publicKey,
-  signTransaction
 ) {
   const recipient = new PublicKey(data.receiver); // recepient address
   const stringOfWithdraw = "withdraw_multisig_sol";

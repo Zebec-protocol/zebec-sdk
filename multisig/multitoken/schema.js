@@ -1,5 +1,5 @@
-import { PublicKey } from "@solana/web3.js";
-import { STABLE_COIN_LAPMORTS } from "../../components/constants/ids";
+const { PublicKey } = require("@solana/web3.js");
+const { STABLE_COIN_LAPMORTS } =require("../../components/constants/ids");
 
 export class Signer {
   constructor(args) {

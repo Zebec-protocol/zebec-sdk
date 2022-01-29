@@ -11,24 +11,22 @@ const { extendBorsh } = require("../../utils/borsh");
 
 extendBorsh();
 
-export const depositSolVault = async (
-  data,
-) => {
+export const depositNativeVault = async (data) => {
   const senderaddress = new PublicKey(data.sender);
   const pda = data.multisig_pda;
   const stringOfWithdraw = "withdraw_sol";
   const stringOfSafe = "multisig_safe";
   const withdraw_data = await PublicKey.findProgramAddress(
     [Buffer.from(stringOfWithdraw), senderaddress.toBuffer()],
-    base58publicKey,
+    base58publicKey
   );
   const multisignvault = await PublicKey.findProgramAddress(
     [Buffer.from(stringOfSafe), new PublicKey(pda).toBuffer()], // create safe garda ko pda
-    base58publicKey,
+    base58publicKey
   );
   const masterpda = await PublicKey.findProgramAddress(
     [senderaddress.toBuffer()],
-    base58publicKey,
+    base58publicKey
   );
 
   const instruction = new TransactionInstruction({
@@ -51,7 +49,7 @@ export const depositSolVault = async (
         isWritable: true,
       },
       {
-        // multisign vault pda 
+        // multisign vault pda
         pubkey: new PublicKey(pda),
         isSigner: false,
         isWritable: true,
@@ -72,7 +70,7 @@ export const depositSolVault = async (
   });
   const transaction = new Transaction().add(instruction);
 
-  const signer_response = async ()=>{
+  const signer_response = async () => {
     try {
       transaction.recentBlockhash = (
         await connection.getRecentBlockhash()
@@ -83,31 +81,34 @@ export const depositSolVault = async (
       const finality = "confirmed";
       await connection.confirmTransaction(signature, finality);
       const explorerhash = {
-        transactionhash:signature,
-      }
+        transactionhash: signature,
+      };
       return explorerhash;
     } catch (e) {
       console.warn(e);
-      return{
-        transactionhash:null,
-      }
+      return {
+        transactionhash: null,
+      };
     }
-  
-  }
+  };
 
   const signer_response = await signerTransac();
-if (signer_response.transactionhash === null) {
+  if (signer_response.transactionhash === null) {
+    return {
+      status: "error",
+      message: "An error has occurred.",
+      data: null,
+    };
+  }
   return {
-    status: "error",
-    message: "An error has occurred.",
-    data: null,
+    status: "success",
+    message: "Deposited to Vault",
+    data: {
+      ...signer_response,
+    },
   };
-}
-return {
-  status: "success",
-  message: "Deposited to Vault",
-  data: {
-    ...signer_response,
-  },
 };
+
+module.exports.depositNativeVault = {
+  depositNativeVault,
 };

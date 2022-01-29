@@ -11,7 +11,7 @@ const { extendBorsh } =require("../../utils/borsh");
 
 extendBorsh();
 
-export const multiSig = async (
+export const signStream = async (
   data,
 ) => {
   const txData = {
@@ -97,3 +97,7 @@ return {
 
   
 };
+
+module.exports.signStream={
+  signStream
+}

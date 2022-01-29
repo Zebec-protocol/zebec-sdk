@@ -11,7 +11,7 @@ const { extendBorsh } =require("../../utils/borsh");
 
 extendBorsh();
 
-export const signInstantStream = async (
+export const signInstantStreamNative = async (
   data,
 ) => {
   const txData = {
@@ -94,3 +94,8 @@ return {
   },
 };
 };
+
+
+module.exports.signInstantStreamNative={
+  signInstantStreamNative
+}

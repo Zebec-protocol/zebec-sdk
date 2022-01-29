@@ -15,7 +15,7 @@ const { InitSolStreamSchema, Signer, SolStream } =require( "./schema");
 
 extendBorsh();
 
-export const startSolStream = async (
+export const initStreamMultiSig = async (
   data,
 ) => {
   const pda = new Keypair();
@@ -115,7 +115,9 @@ return {
   },
 };
 
-
-  
-
 };
+
+
+module.exports.initStreamMultiSig={
+  initStreamMultiSig
+}

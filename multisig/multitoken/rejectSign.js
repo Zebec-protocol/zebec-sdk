@@ -12,12 +12,6 @@ extendBorsh();
 
 export const rejectSignatureToken = async (
   data,
-  transactionId,
-  safeId,
-  connection,
-  publicKey,
-  signTransaction,
-  dispatch
 ) => {
   console.log(data);
 

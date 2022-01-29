@@ -7,7 +7,6 @@ const {
 const {
   ATOKEN,
   base58publicKey,
-  FEEADDRESS,
   PROGRAM_ID,
   SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID,
   SYSTEMRENT,
@@ -22,10 +21,6 @@ extendBorsh();
 
 export const depositToken = async (
   data,
-  connection,
-  publicKey,
-  signTransaction,
-  dispatch
 ) => {
   const senderaddress = new PublicKey(data.sender);
   const stringOfWithdraw = "withdraw_token";

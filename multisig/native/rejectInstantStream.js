@@ -11,7 +11,7 @@ const { extendBorsh } =require( "../../utils/borsh");
 
 extendBorsh();
 
-export const rejectInstantStream = async (
+export const rejectInstantNative = async (
   data,
 ) => {
   const instruction = new TransactionInstruction({
@@ -75,3 +75,8 @@ return {
 };
   
 };
+
+
+moduel.exports.rejectInstantNative={
+  rejectInstantNative
+}

@@ -14,10 +14,6 @@ extendBorsh();
 
 export const startTokenStream = async (
   data,
-  connection,
-  publicKey,
-  signTransaction,
-  dispatch
 ) => {
   const pda = new Keypair();
 
