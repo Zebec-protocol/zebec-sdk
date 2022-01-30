@@ -8,7 +8,7 @@ const { constants } = require("../../constants");
 const { serialize } = require("borsh");
 const { extendBorsh } = require("../../utils/borsh");
 const { WithdrawStreamed, WithdrawStreamedSchema } = require("./schema");
-const { base58publicKey, FEEADDRESS, PROGRAM_ID } = constants;
+const { base58publicKey, FEEADDRESS, PROGRAM_ID ,connection } = constants;
 
 extendBorsh();
 async function withdrawStreamMultiSig(data) {
@@ -77,11 +77,11 @@ async function withdrawStreamMultiSig(data) {
       transaction.recentBlockhash = (
         await connection.getRecentBlockhash()
       ).blockhash;
-      transaction.feePayer = publicKey;
-      const signed = await signTransaction(transaction);
+      transaction.feePayer = window.solana.publicKey;
+      const signed = await window.solana.signTransaction(transaction);
       const signature = await connection.sendRawTransaction(signed.serialize());
       const finality = "confirmed";
-      const response = await connection.confirmTransaction(signature, finality);
+      await connection.confirmTransaction(signature, finality);
     } catch (e) {
       console.warn(e);
       return {

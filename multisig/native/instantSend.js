@@ -8,7 +8,7 @@ const { serialize } = require("borsh");
 const { extendBorsh } = require("../../utils/borsh");
 const { constants } = require("../../constants");
 const { InstantStream, InstantStreamSchema, Signer } = require("./schema");
-const { PROGRAM_ID } = constants;
+const { PROGRAM_ID , connection } = constants;
 
 extendBorsh();
 
@@ -64,9 +64,9 @@ async function instantSendNative(data) {
         await connection.getRecentBlockhash()
       ).blockhash;
 
-      transaction.feePayer = publicKey;
+      transaction.feePayer = window.solana.publicKey;
       transaction.partialSign(pda);
-      const signedTransaction = await signTransaction(transaction);
+      const signedTransaction = await window.solana.signTransaction(transaction);
 
       const signature = await connection.sendRawTransaction(
         signedTransaction.serialize()
