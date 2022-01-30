@@ -5,8 +5,9 @@ const {
 } = require("@solana/web3.js");
 const { RejectInstantStream, RejectInstantStreamSchema } = require("./schema");
 const { serialize } = require("borsh");
-const { PROGRAM_ID } = require("../../constants");
+const { constants } = require("../../constants");
 const { extendBorsh } = require("../../utils/borsh");
+const { PROGRAM_ID } = constants;
 
 extendBorsh();
 

@@ -7,9 +7,9 @@ const {
 } = require("@solana/web3.js");
 const { serialize } = require("borsh");
 const { extendBorsh } = require("../../utils/borsh");
-
-const { PROGRAM_ID } = require("../../constants");
+const { constants } = require("../../constants");
 const { InitSolStreamSchema, Signer, SolStream } = require("./schema");
+const { PROGRAM_ID } = constants;
 
 extendBorsh();
 

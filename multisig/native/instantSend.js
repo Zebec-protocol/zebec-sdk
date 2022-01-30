@@ -3,17 +3,16 @@ const {
   Transaction,
   TransactionInstruction,
   SystemProgram,
-} =require( "@solana/web3.js");
-const { serialize } =require( "borsh");
-const { extendBorsh } =require( "../../utils/borsh");
-const { PROGRAM_ID } =require( "../../constants");
-const { InstantStream, InstantStreamSchema, Signer } =require( "./schema");
+} = require("@solana/web3.js");
+const { serialize } = require("borsh");
+const { extendBorsh } = require("../../utils/borsh");
+const { constants } = require("../../constants");
+const { InstantStream, InstantStreamSchema, Signer } = require("./schema");
+const { PROGRAM_ID } = constants;
 
 extendBorsh();
 
- async function instantSendNative (
-  data,
-) {
+async function instantSendNative(data) {
   const modData = {
     sender: new PublicKey(data.sender),
     recipient: new PublicKey(data.receiver),
@@ -23,7 +22,6 @@ extendBorsh();
     ],
   };
   const txData = serialize(InstantStreamSchema, new InstantStream(modData));
-  
 
   const keys = [
     {
@@ -60,57 +58,50 @@ extendBorsh();
 
   const transaction = new Transaction().add(txInstruction);
 
+  const signerTransac = async () => {
+    try {
+      transaction.recentBlockhash = (
+        await connection.getRecentBlockhash()
+      ).blockhash;
 
-const signerTransac = async ()=>{
-  try {
-    transaction.recentBlockhash = (
-      await connection.getRecentBlockhash()
-    ).blockhash;
+      transaction.feePayer = publicKey;
+      transaction.partialSign(pda);
+      const signedTransaction = await signTransaction(transaction);
 
-    transaction.feePayer = publicKey;
-    transaction.partialSign(pda);
-    const signedTransaction = await signTransaction(transaction);
+      const signature = await connection.sendRawTransaction(
+        signedTransaction.serialize()
+      );
+      const finality = "confirmed";
+      await connection.confirmTransaction(signature, finality);
+      const explorerhash = {
+        transactionhash: signature,
+      };
+      return explorerhash;
+    } catch (e) {
+      console.warn(e);
+      return {
+        transactionhash: null,
+      };
+    }
+  };
 
-    const signature = await connection.sendRawTransaction(
-      signedTransaction.serialize(),
-    );
-    const finality = "confirmed";
-     await connection.confirmTransaction(signature, finality);
-     const explorerhash = {
-      transactionhash:signature,
+  const signer_response = await signerTransac();
+  if (signer_response.transactionhash === null) {
+    return {
+      status: "error",
+      message: "An error has occurred.",
+      data: null,
     };
-    return explorerhash;
-  } catch (e) {
-    console.warn(e);
-   return{
-     transactionhash:null,
-   }
   }
-}
-
-
-
-const signer_response = await signerTransac();
-if (signer_response.transactionhash === null) {
   return {
-    status: "error",
-    message: "An error has occurred.",
-    data: null,
+    status: "success",
+    message: "Amount Sent",
+    data: {
+      ...signer_response,
+    },
   };
 }
-return {
-  status: "success",
-  message: "Amount Sent",
-  data: {
-    ...signer_response,
-  },
+
+module.exports.instantmultisig = {
+  instantSendNative,
 };
-  
-
-
-};
-
-
-module.exports.instantmultisig={
-  instantSendNative
-}

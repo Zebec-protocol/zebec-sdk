@@ -3,14 +3,15 @@ const {
   Transaction,
   TransactionInstruction,
 } = require("@solana/web3.js");
-const { PROGRAM_ID } = require("../../constants");
+const { constants } = require("../../constants");
 const { serialize } = require("borsh");
 const { extendBorsh } = require("../../utils/borsh");
 const { Pause, PauseSchema } = require("./schema");
+const { PROGRAM_ID } = constants;
 
 extendBorsh();
 
- async function pauseStreamMultisig(data) {
+async function pauseStreamMultisig(data) {
   const instruction = new TransactionInstruction({
     keys: [
       {

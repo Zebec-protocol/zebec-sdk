@@ -2,17 +2,16 @@ const {
   PublicKey,
   Transaction,
   TransactionInstruction,
-} =require( "@solana/web3.js");
-const { PROGRAM_ID } =require( "../../constants");
-const { serialize } =require( "borsh");
-const { extendBorsh } =require( "../../utils/borsh");
-const { Resume, ResumeSchema } =require( "./schema");
+} = require("@solana/web3.js");
+const { constants } = require("../../constants");
+const { serialize } = require("borsh");
+const { extendBorsh } = require("../../utils/borsh");
+const { Resume, ResumeSchema } = require("./schema");
+const { PROGRAM_ID } = constants;
 
 extendBorsh();
 
- async function resumeStreamMultisig(
-  data,
-) {
+async function resumeStreamMultisig(data) {
   const instruction = new TransactionInstruction({
     keys: [
       {
@@ -41,7 +40,7 @@ extendBorsh();
   });
   const transaction = new Transaction().add(instruction);
 
-  const signerTransac = async()=>{
+  const signerTransac = async () => {
     try {
       transaction.recentBlockhash = (
         await connection.getRecentBlockhash()
@@ -52,36 +51,34 @@ extendBorsh();
       const finality = "confirmed";
       await connection.confirmTransaction(signature, finality);
       const explorerhash = {
-        transactionhash:signature,
+        transactionhash: signature,
       };
       return explorerhash;
     } catch (e) {
       console.warn(e);
-     return{
-       transactionhash:null,
-     }
+      return {
+        transactionhash: null,
+      };
     }
+  };
+
+  const signer_response = await signerTransac();
+  if (signer_response.transactionhash === null) {
+    return {
+      status: "error",
+      message: "An error has occurred.",
+      data: null,
+    };
   }
-
-
-const signer_response = await signerTransac();
-if (signer_response.transactionhash === null) {
   return {
-    status: "error",
-    message: "An error has occurred.",
-    data: null,
+    status: "success",
+    message: "Stream Resumed",
+    data: {
+      ...signer_response,
+    },
   };
 }
-return {
-  status: "success",
-  message: "Stream Resumed",
-  data: {
-    ...signer_response,
-  },
+
+module.exports.resumemultisig = {
+  resumeStreamMultisig,
 };
-
-}
-
-module.exports.resumemultisig={
-  resumeStreamMultisig
-}

@@ -6,8 +6,9 @@ const {
 } = require("@solana/web3.js");
 const { MultiSigSchema, MultiSigSign, Signer } = require("./schema");
 const { serialize } = require("borsh");
-const { base58publicKey, PROGRAM_ID } = require("../../constants");
+const { constants } = require("../../constants");
 const { extendBorsh } = require("../../utils/borsh");
+const {base58publicKey, PROGRAM_ID } = constants
 
 extendBorsh();
 

@@ -2,17 +2,16 @@ const {
   PublicKey,
   Transaction,
   TransactionInstruction,
-} =require( "@solana/web3.js");
-const { RejectSchema, Reject } =require( "./schema");
-const { serialize } =require( "borsh");
-const { PROGRAM_ID } =require( "../../constants");
-const { extendBorsh } =require( "../../utils/borsh");
+} = require("@solana/web3.js");
+const { RejectSchema, Reject } = require("./schema");
+const { serialize } = require("borsh");
+const { constants } = require("../../constants");
+const { extendBorsh } = require("../../utils/borsh");
+const { PROGRAM_ID } = constants;
 
 extendBorsh();
 
- async function rejectSigStreamMultisig  (
-  data,
-) {
+async function rejectSigStreamMultisig(data) {
   const instruction = new TransactionInstruction({
     keys: [
       {
@@ -38,7 +37,7 @@ extendBorsh();
   });
   const transaction = new Transaction().add(instruction);
 
-  const signerTransac = async () =>{
+  const signerTransac = async () => {
     try {
       transaction.recentBlockhash = (
         await connection.getRecentBlockhash()
@@ -49,16 +48,16 @@ extendBorsh();
       const finality = "confirmed";
       await connection.confirmTransaction(signature, finality);
       const explorerhash = {
-        transactionhash:signature,
+        transactionhash: signature,
       };
       return explorerhash;
     } catch (e) {
       console.warn(e);
-      return{
-        transactionhash:null,
-      }
+      return {
+        transactionhash: null,
+      };
     }
-  }
+  };
   const signer_response = await signerTransac();
   if (signer_response.transactionhash === null) {
     return {
@@ -74,10 +73,8 @@ extendBorsh();
       ...signer_response,
     },
   };
-  
-};
-
-
-module.exports.rejectmultisig={
-  rejectSigStreamMultisig
 }
+
+module.exports.rejectmultisig = {
+  rejectSigStreamMultisig,
+};

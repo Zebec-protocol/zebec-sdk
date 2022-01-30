@@ -1,9 +1,9 @@
 const { PublicKey, Connection, clusterApiUrl } = require("@solana/web3.js");
 
 const base58publicKey = new PublicKey(
-  "7FNWTfCo3AyRBFCvr49daqKHehdn2GjNgpjuTsqy5twk"
+  "AknC341xog56SrnoK6j3mUvaD1Y7tYayx1sxUGpeYWdX"
 );
-const PROGRAM_ID = "7FNWTfCo3AyRBFCvr49daqKHehdn2GjNgpjuTsqy5twk"; // Zebec program id
+const PROGRAM_ID = "AknC341xog56SrnoK6j3mUvaD1Y7tYayx1sxUGpeYWdX"; // Zebec program id
 const CLUSTER = "devnet";
 const connection = new Connection(clusterApiUrl(CLUSTER)); // cluster
 const SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID = new PublicKey(
@@ -22,5 +22,5 @@ module.exports.constants = {
   connection,
   SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID,
   wallettokenaddress,
-  stringofwithdraw
+  stringofwithdraw,
 };

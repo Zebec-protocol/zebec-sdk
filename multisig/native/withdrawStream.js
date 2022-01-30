@@ -4,13 +4,14 @@ const {
   Transaction,
   TransactionInstruction,
 } = require("@solana/web3.js");
-const { base58publicKey, FEEADDRESS, PROGRAM_ID } = require("../../constants");
+const { constants } = require("../../constants");
 const { serialize } = require("borsh");
 const { extendBorsh } = require("../../utils/borsh");
 const { WithdrawStreamed, WithdrawStreamedSchema } = require("./schema");
+const { base58publicKey, FEEADDRESS, PROGRAM_ID } = constants;
 
 extendBorsh();
- async function withdrawStreamMultiSig(data) {
+async function withdrawStreamMultiSig(data) {
   const stringOfWithdraw = "withdraw_multisig_sol";
   const withdraw_data = await PublicKey.findProgramAddress(
     [

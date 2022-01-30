@@ -6,12 +6,13 @@ const {
 } = require("@solana/web3.js");
 const { SwapSolSchema, SwapSol } = require("./schema");
 const { serialize } = require("borsh");
-const { base58publicKey, PROGRAM_ID } = require("../../constants");
+const { constants } = require("../../constants");
 const { extendBorsh } = require("../../utils/borsh");
+const { base58publicKey, PROGRAM_ID } = constants;
 
 extendBorsh();
 
-  async function depositNativeVault  (data)  {
+async function depositNativeVault(data) {
   const senderaddress = new PublicKey(data.sender);
   const pda = data.multisig_pda;
   const stringOfWithdraw = "withdraw_sol";
@@ -107,7 +108,7 @@ extendBorsh();
       ...signer_response,
     },
   };
-};
+}
 
 module.exports.depositmultisig = {
   depositNativeVault,
