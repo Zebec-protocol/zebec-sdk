@@ -1,8 +1,8 @@
-import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+const { LAMPORTS_PER_SOL } = require("@solana/web3.js");
 
 export class SolStream {
   constructor(args) {
-    this.instruction = 0;
+    this.instruction = 3;
     this.start_time = args.start_time;
     this.end_time = args.end_time;
     this.amount = args.amount * LAMPORTS_PER_SOL;
@@ -24,16 +24,16 @@ export const InitSolStreamSchema = new Map([
   ],
 ]);
 
-export class DepositSol {
+export class DepositToken {
   constructor(args) {
-    this.instruction = 7;
+    this.instruction = 11;
     this.amount = args.amount * LAMPORTS_PER_SOL;
   }
 }
 
-export const DepositSolSchema = new Map([
+export const DepositTokenSchema = new Map([
   [
-    DepositSol,
+    DepositToken,
     {
       kind: "struct",
       fields: [
@@ -46,7 +46,7 @@ export const DepositSolSchema = new Map([
 
 export class Cancel {
   constructor(args) {
-    this.instruction = 2;
+    this.instruction = 8;
   }
 }
 
@@ -55,14 +55,16 @@ export const CancelSchema = new Map([
     Cancel,
     {
       kind: "struct",
-      fields: [["instruction", "u8"]],
+      fields: [
+        ["instruction", "u8"],
+      ],
     },
   ],
 ]);
 
 export class Pause {
   constructor(args) {
-    this.instruction = 4;
+    this.instruction = 9;
   }
 }
 
@@ -71,14 +73,16 @@ export const PauseSchema = new Map([
     Pause,
     {
       kind: "struct",
-      fields: [["instruction", "u8"]],
+      fields: [
+        ["instruction", "u8"],
+      ],
     },
   ],
 ]);
 
 export class Resume {
   constructor(args) {
-    this.instruction = 5;
+    this.instruction = 10;
   }
 }
 
@@ -87,14 +91,16 @@ export const ResumeSchema = new Map([
     Resume,
     {
       kind: "struct",
-      fields: [["instruction", "u8"]],
+      fields: [
+        ["instruction", "u8"],
+      ],
     },
   ],
 ]);
 
 export class WithdrawStreamed {
   constructor(args) {
-    this.instruction = 1;
+    this.instruction = 6;
     this.amount = args.amount * LAMPORTS_PER_SOL;
   }
 }
@@ -114,7 +120,7 @@ export const WithdrawStreamedSchema = new Map([
 
 export class WithdrawMainWallet {
   constructor(args) {
-    this.instruction = 14;
+    this.instruction = 15;
     this.amount = args.amount * LAMPORTS_PER_SOL;
   }
 }
