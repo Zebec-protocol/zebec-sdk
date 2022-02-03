@@ -29,7 +29,6 @@ const {
   PROGRAM_ID,
   connection,
   SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID,
-  wallettokenaddress,
   TOKENPROGRAMID,
   ATOKEN,
   SYSTEMRENT,
@@ -177,7 +176,7 @@ async function withdrawMultiTokenDeposit(data) {
 //multiple token deposit
 async function depositMultiToken(data) {
   const senderaddress = new PublicKey(data.sender);
-
+  const tokenmint = new PublicKey(data.token);
   async function findAssociatedTokenAddress(walletAddress, tokenMintAddress) {
     return (
       await PublicKey.findProgramAddress(
@@ -193,7 +192,7 @@ async function depositMultiToken(data) {
 
   const sender_associated_token_address = await findAssociatedTokenAddress(
     senderaddress,
-    wallettokenaddress
+    tokenmint
   );
 
   const validProgramAddress = await PublicKey.findProgramAddress(
@@ -203,7 +202,7 @@ async function depositMultiToken(data) {
 
   const pda_associated_token_address = await findAssociatedTokenAddress(
     validProgramAddress[0],
-    wallettokenaddress
+    tokenmint
   );
 
   const instruction = new TransactionInstruction({
