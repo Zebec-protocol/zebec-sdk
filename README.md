@@ -30,17 +30,6 @@ import {
 } from "zebecprotocol-sdk";
 ```
 
-# Add Your Dynamic Cluster
-
-```javascript
-
-import{constants} from 'zebecprotocol-sdk';
-
-constants.CLUSTER = "devnet"; // devnet || mainnet-beta 
-constants.connection = new Connection(clusterApiUrl(constants.CLUSTER));
-
-```
-
 # Connect to Phantom Wallet.
 
 ```javascript
