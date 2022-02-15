@@ -3,7 +3,7 @@ const base58publicKey = new PublicKey(
   "AknC341xog56SrnoK6j3mUvaD1Y7tYayx1sxUGpeYWdX"
 );
 const PROGRAM_ID = "AknC341xog56SrnoK6j3mUvaD1Y7tYayx1sxUGpeYWdX"; // Zebec program id
-const CLUSTER = "devnet";
+const CLUSTER = "mainnet-beta";
 const connection = new Connection(clusterApiUrl(CLUSTER)); // cluster
 const SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID = new PublicKey(
   "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
