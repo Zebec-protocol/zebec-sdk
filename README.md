@@ -13,7 +13,11 @@ Mainnet - AknC341xog56SrnoK6j3mUvaD1Y7tYayx1sxUGpeYWdX
 
 # Install The Zebec Protocol js sdk
 
-`$ npm i zebecprotocol-sdk @solana/web3.js buffer-layout @solana/spl-token`
+Devet:
+`$ npm i zebecprotocol-sdk @solana/web3.js buffer-layout @solana/spl-token` 
+
+Mainnet:
+`$ npm i zebecprotocol-mainnet @solana/web3.js buffer-layout @solana/spl-token`
 
 # Import JS Functions
 
@@ -28,17 +32,6 @@ import {
   resumeNativeTransaction,
   withdrawNativeTokenDeposit,
 } from "zebecprotocol-sdk";
-```
-
-# Add Your Dynamic Cluster
-
-```javascript
-
-import{constants} from 'zebecprotocol-sdk';
-
-constants.CLUSTER = "devnet"; // devnet || mainnet-beta 
-constants.connection = new Connection(clusterApiUrl(constants.CLUSTER));
-
 ```
 
 # Connect to Phantom Wallet.
