@@ -5,7 +5,7 @@ export class SolStream {
     this.instruction = 3;
     this.start_time = args.start_time;
     this.end_time = args.end_time;
-    this.amount = args.amount * LAMPORTS_PER_SOL;
+    this.amount = (args.amount * LAMPORTS_PER_SOL).toString();
   }
 }
 
@@ -27,7 +27,7 @@ export const InitSolStreamSchema = new Map([
 export class DepositToken {
   constructor(args) {
     this.instruction = 11;
-    this.amount = args.amount * LAMPORTS_PER_SOL;
+    this.amount = (args.amount * LAMPORTS_PER_SOL).toString();
   }
 }
 
@@ -101,7 +101,7 @@ export const ResumeSchema = new Map([
 export class WithdrawStreamed {
   constructor(args) {
     this.instruction = 6;
-    this.amount = args.amount * LAMPORTS_PER_SOL;
+    this.amount = (args.amount * LAMPORTS_PER_SOL).toString();
   }
 }
 
@@ -121,7 +121,7 @@ export const WithdrawStreamedSchema = new Map([
 export class WithdrawMainWallet {
   constructor(args) {
     this.instruction = 15;
-    this.amount = args.amount * LAMPORTS_PER_SOL;
+    this.amount = (args.amount * LAMPORTS_PER_SOL).toString();
   }
 }
 

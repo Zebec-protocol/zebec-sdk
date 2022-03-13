@@ -13,7 +13,11 @@ Mainnet - AknC341xog56SrnoK6j3mUvaD1Y7tYayx1sxUGpeYWdX
 
 # Install The Zebec Protocol js sdk
 
-`$ npm i zebecprotocol-sdk @solana/web3.js buffer-layout @solana/spl-token`
+Devet:
+`$ npm i zebecprotocol-sdk @solana/web3.js buffer-layout @solana/spl-token` 
+
+Mainnet:
+`$ npm i zebecprotocol-mainnet @solana/web3.js buffer-layout @solana/spl-token`
 
 # Import JS Functions
 
