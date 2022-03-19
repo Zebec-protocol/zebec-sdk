@@ -1,6 +1,6 @@
 {
   "name": "zebecprotocol-sdk",
-  "version": "1.1.2",
+  "version": "1.1.5",
   "description": "",
   "main": "index.js",
   "scripts": {

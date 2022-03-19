@@ -12,6 +12,7 @@ const { signinstant } = require("./multisig/native/signInstantStream");
 const { signmultisig } = require("./multisig/native/signStream");
 const { initmultisig } = require("./multisig/native/solStream");
 const { withdrawmultisig } = require("./multisig/native/withdrawStream");
+const {constants} = require("./constants");
 
 const {
   initNativeTransaction,
@@ -45,6 +46,8 @@ const { signInstantStreamNative } = signinstant;
 const { signStream } = signmultisig;
 const { initStreamMultiSig } = initmultisig;
 const { withdrawStreamMultiSig } = withdrawmultisig;
+
+
 
 const getProvider = async () => {
   const isPhantomInstalled = (await window.solana) && window.solana.isPhantom;
@@ -86,3 +89,4 @@ module.exports.signInstantStreamNative = signInstantStreamNative;
 module.exports.signStream = signStream;
 module.exports.initStreamMultiSig = initStreamMultiSig;
 module.exports.withdrawStreamMultiSig = withdrawStreamMultiSig;
+module.exports.constants = constants;

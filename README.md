@@ -6,18 +6,20 @@ The Zebec Protocol is not just limited to streamlined payments. On top of pay pe
 
 # Zebec Program
 
-Devnet - 7FNWTfCo3AyRBFCvr49daqKHehdn2GjNgpjuTsqy5twk
-Mainnet - Coming Soon
+Devnet - AknC341xog56SrnoK6j3mUvaD1Y7tYayx1sxUGpeYWdX
+Mainnet - AknC341xog56SrnoK6j3mUvaD1Y7tYayx1sxUGpeYWdX
 
-# Next Zebec Update
 
-Mainnet , USDC , USDT
 
 # Install The Zebec Protocol js sdk
 
-`$ npm i zebecprotocol-sdk @solana/web3.js buffer-layout @solana/spl-token`
+Devet:
+`$ npm i zebecprotocol-sdk @solana/web3.js buffer-layout @solana/spl-token` 
 
-# Import JS SDK
+Mainnet:
+`$ npm i zebecprotocol-mainnet @solana/web3.js buffer-layout @solana/spl-token`
+
+# Import JS Functions
 
 ```javascript
 import {
@@ -73,8 +75,8 @@ const sendTransac = async () => {
     sender: "J75jd3kjsABQSDrEdywcyhmbq8eHDowfW9xtEWsVALy9",
     receiver: "FuEm7UMaCYHThzKaf9DcJ7MdM4t4SALfeNnYQq46foVv",
     amount: 1,
-    start: 1637182627, // epoch time stamp (unix)
-    end: 1637192627,
+    start_time: 1637182627, // epoch time stamp (unix)
+    end_time: 1637192627,
   };
   const response = await initNativeTransaction(data); // pda should be saved.
 };

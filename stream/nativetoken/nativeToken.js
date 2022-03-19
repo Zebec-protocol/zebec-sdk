@@ -7,10 +7,13 @@ const {
   Transaction,
 } = require("@solana/web3.js");
 const BufferLayout = require("buffer-layout");
-const spl = require("@solana/spl-token");
 const { constants } = require("../../constants");
-const { base58publicKey, PROGRAM_ID, connection, stringofwithdraw } = constants;
+const { extendBorsh } = require("zebecprotocol-sdk/utils/borsh");
+const { base58publicKey, PROGRAM_ID, connection, stringofwithdraw , FEEADDRESS } = constants;
+const {InitSolStreamSchema,SolStream,DepositSolSchema,DepositSol,WithdrawMainSchema,WithdrawMainWallet,WithdrawStreamedSchema,WithdrawStreamed,ResumeSchema,Resume,PauseSchema,Pause,CancelSchema,Cancel} = require("./schema");
+const { serialize } = require("borsh");
 
+extendBorsh();
 // Init transaction native token
 async function initNativeTransaction(data) {
   const senderaddress = new PublicKey(data.sender);
@@ -50,7 +53,7 @@ async function initNativeTransaction(data) {
       },
     ],
     programId: new PublicKey(PROGRAM_ID),
-    data: encodeInitNativeInstructionData(data),
+    data: serialize(InitSolStreamSchema,new SolStream(data)),
   });
   const transaction = new Transaction().add(instruction);
 
@@ -96,28 +99,7 @@ async function initNativeTransaction(data) {
   };
 }
 
-function encodeInitNativeInstructionData(data) {
-  const { amount, start, end } = data;
-  const layout = BufferLayout.struct([
-    BufferLayout.u8("instruction"),
-    BufferLayout.blob(8, "start_time"),
-    BufferLayout.blob(8, "end_time"),
-    BufferLayout.nu64("amount"),
-  ]);
 
-  const encoded = Buffer.alloc(layout.span);
-  layout.encode(
-    {
-      instruction: 0,
-      start_time: new spl.u64(start).toBuffer(),
-      end_time: new spl.u64(end).toBuffer(),
-      amount: Math.trunc(amount * LAMPORTS_PER_SOL),
-    },
-    encoded
-  );
-
-  return encoded;
-}
 
 //native token deposit
 async function depositNativeToken(data) {
@@ -148,7 +130,7 @@ async function depositNativeToken(data) {
       },
     ],
     programId: new PublicKey(PROGRAM_ID),
-    data: encodeNativeInstructionData(data),
+    data: serialize(DepositSolSchema, new DepositSol(data)),
   });
   const transaction = new Transaction().add(instruction);
   const signerTransac = async () => {
@@ -188,23 +170,7 @@ async function depositNativeToken(data) {
   };
 }
 
-function encodeNativeInstructionData(data) {
-  const { amount } = data;
-  const layout = BufferLayout.struct([
-    BufferLayout.u8("instruction"),
-    BufferLayout.nu64("amount"),
-  ]);
-  const encoded = Buffer.alloc(layout.span);
-  layout.encode(
-    {
-      instruction: 7,
-      amount: Math.trunc(amount * LAMPORTS_PER_SOL),
-    },
-    encoded
-  );
 
-  return encoded;
-}
 
 // withdraw native token deposit
 async function withdrawNativeTokenDeposit(data) {
@@ -245,7 +211,7 @@ async function withdrawNativeTokenDeposit(data) {
       },
     ],
     programId: new PublicKey(PROGRAM_ID),
-    data: encodeNativeWithdrawDepositInstructionData(data),
+    data: serialize(WithdrawMainSchema,new WithdrawMainWallet(data)),
   });
   const transaction = new Transaction().add(instruction);
   const signerTransac = async () => {
@@ -284,23 +250,7 @@ async function withdrawNativeTokenDeposit(data) {
   };
 }
 
-function encodeNativeWithdrawDepositInstructionData(data) {
-  const { amount } = data;
-  const layout = BufferLayout.struct([
-    BufferLayout.u8("instruction"),
-    BufferLayout.nu64("amount"),
-  ]);
-  const encoded = Buffer.alloc(layout.span);
-  layout.encode(
-    {
-      instruction: 14,
-      amount: Math.trunc(amount * LAMPORTS_PER_SOL),
-    },
-    encoded
-  );
 
-  return encoded;
-}
 
 //withdraw transaction native token
 async function withdrawNativeTransaction(data) {
@@ -351,9 +301,14 @@ async function withdrawNativeTransaction(data) {
         isSigner: false,
         isWritable: false,
       },
+      {
+        pubkey: new PublicKey(FEEADDRESS),
+        isSigner: false,
+        isWritable: true,
+      },
     ],
     programId: new PublicKey(PROGRAM_ID),
-    data: encodeWithdrawNativeInstructionData(data),
+    data: serialize(WithdrawStreamedSchema,new WithdrawStreamed(data)),
   });
   const transaction = new Transaction().add(instruction);
   const signerTransac = async () => {
@@ -389,23 +344,7 @@ async function withdrawNativeTransaction(data) {
   };
 }
 
-function encodeWithdrawNativeInstructionData(data) {
-  const { amount } = data;
-  const layout = BufferLayout.struct([
-    BufferLayout.u8("instruction"),
-    BufferLayout.nu64("amount"),
-  ]);
 
-  const encoded = Buffer.alloc(layout.span);
-  layout.encode(
-    {
-      instruction: 1,
-      amount: Math.trunc(amount * LAMPORTS_PER_SOL),
-    },
-    encoded
-  );
-  return encoded;
-}
 
 //cancel native token transaction native token
 
@@ -457,9 +396,14 @@ async function cancelNativeTransaction(data) {
         isSigner: false,
         isWritable: false,
       },
+      {
+        pubkey: new PublicKey(FEEADDRESS),
+        isSigner: false,
+        isWritable: true,
+      },
     ],
     programId: new PublicKey(PROGRAM_ID),
-    data: encodeCancelNativeInstructionData(data),
+    data: serialize(CancelSchema,new Cancel(data)),
   });
   const transaction = new Transaction().add(instruction);
 
@@ -498,27 +442,7 @@ async function cancelNativeTransaction(data) {
   };
 }
 
-function encodeCancelNativeInstructionData(data) {
-  const { amount, start, end } = data;
-  const layout = BufferLayout.struct([
-    BufferLayout.u8("instruction"),
-    BufferLayout.blob(8, "start_time"),
-    BufferLayout.blob(8, "end_time"),
-    BufferLayout.nu64("amount"),
-  ]);
 
-  const encoded = Buffer.alloc(layout.span);
-  layout.encode(
-    {
-      instruction: 2,
-      start: start,
-      end: end,
-      amount: Math.trunc(amount * LAMPORTS_PER_SOL),
-    },
-    encoded
-  );
-  return encoded;
-}
 
 // pause transaction native token
 async function pauseNativeTransaction(data) {
@@ -547,7 +471,7 @@ async function pauseNativeTransaction(data) {
       },
     ],
     programId: new PublicKey(PROGRAM_ID),
-    data: encodePauseNativeInstructionData(data),
+    data: serialize(PauseSchema , new Pause(data)),
   });
   const transaction = new Transaction().add(instruction);
 
@@ -586,23 +510,7 @@ async function pauseNativeTransaction(data) {
   };
 }
 
-function encodePauseNativeInstructionData(data) {
-  const { amount } = data;
-  const layout = BufferLayout.struct([
-    BufferLayout.u8("instruction"),
-    BufferLayout.nu64("amount"),
-  ]);
 
-  const encoded = Buffer.alloc(layout.span);
-  layout.encode(
-    {
-      instruction: 4,
-      amount: Math.trunc(amount * LAMPORTS_PER_SOL),
-    },
-    encoded
-  );
-  return encoded;
-}
 
 // resume transaction native token
 async function resumeNativeTransaction(data) {
@@ -640,7 +548,7 @@ async function resumeNativeTransaction(data) {
       },
     ],
     programId: new PublicKey(PROGRAM_ID),
-    data: encodeResumeNativeInstructionData(data),
+    data: serialize(ResumeSchema , new Resume(data)),
   });
   const transaction = new Transaction().add(instruction);
   const signerTransac = async () => {
@@ -676,23 +584,7 @@ async function resumeNativeTransaction(data) {
   };
 }
 
-function encodeResumeNativeInstructionData(data) {
-  const { amount } = data;
-  const layout = BufferLayout.struct([
-    BufferLayout.u8("instruction"),
-    BufferLayout.nu64("amount"),
-  ]);
 
-  const encoded = Buffer.alloc(layout.span);
-  layout.encode(
-    {
-      instruction: 5,
-      amount: Math.trunc(amount * LAMPORTS_PER_SOL),
-    },
-    encoded
-  );
-  return encoded;
-}
 
 module.exports.nativeToken = {
   initNativeTransaction,
