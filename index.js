@@ -1,6 +1,27 @@
-const {nativeToken} = require("./stream/nativetoken/nativeToken");
-const {multiToken} = require("./stream/multitoken/multiToken");
+const { nativeToken } = require("./stream/nativetoken/nativeToken");
+const { multiToken } = require("./stream/multitoken/multiToken");
+const { createvaultmultisig } = require("./multisig/native/createVault");
+const { cancelstreamultisign } = require("./multisig/native/cancelStream");
+const { depositmultisig } = require("./multisig/native/depositVault");
+const { instantmultisig } = require("./multisig/native/instantSend");
+const { pausemultisig } = require("./multisig/native/pauseStream");
+const { rejectinstant } = require("./multisig/native/rejectInstantStream");
+const { rejectmultisig } = require("./multisig/native/rejectSign");
+const { resumemultisig } = require("./multisig/native/resumeStream");
+const { signinstant } = require("./multisig/native/signInstantStream");
+const { signmultisig } = require("./multisig/native/signStream");
+const { initmultisig } = require("./multisig/native/solStream");
+const { withdrawmultisig } = require("./multisig/native/withdrawStream");
+const {deposittokenvault} = require("./multisig/multitoken/depositSafeToken");
+const {starttokenstream}=require("./multisig/multitoken/tokenStream");
+const {signtransactiontoken}=require("./multisig/multitoken/signStream");
+const {pausestreamtoken} = require("./multisig/multitoken/pauseStream");
+const {resumestreamtoken}=require("./multisig/multitoken/resumeStream");
+const {cancelstreamtoken}=require("./multisig/multitoken/cancelStream");
+const {rejectsignaturetoken}=require("./multisig/multitoken/rejectSign");
+const {withdrawstreamedbalancetoken}=require("./multisig/multitoken/withdrawStream");
 const {constants} = require("./constants");
+
 
 const {
   initNativeTransaction,
@@ -9,8 +30,8 @@ const {
   withdrawNativeTransaction,
   cancelNativeTransaction,
   pauseNativeTransaction,
-  resumeNativeTransaction
-} = nativeToken
+  resumeNativeTransaction,
+} = nativeToken;
 
 const {
   MultiTokenCancel,
@@ -19,8 +40,30 @@ const {
   MultiTokenWithdraw,
   MultiTokenStream,
   depositMultiToken,
-  withdrawMultiTokenDeposit
-} =multiToken
+  withdrawMultiTokenDeposit,
+} = multiToken;
+
+const { createVault } = createvaultmultisig;
+const { cancelStreamMultiSig } = cancelstreamultisign;
+const { depositNativeVault } = depositmultisig;
+const { instantSendNative } = instantmultisig;
+const { pauseStreamMultisig } = pausemultisig;
+const { rejectInstantNative } = rejectinstant;
+const { rejectSigStreamMultisig } = rejectmultisig;
+const { resumeStreamMultisig } = resumemultisig;
+const { signInstantStreamNative } = signinstant;
+const { signStream } = signmultisig;
+const { initStreamMultiSig } = initmultisig;
+const { withdrawStreamMultiSig } = withdrawmultisig;
+
+const {depositTokenVault} = deposittokenvault;
+const {startTokenStream}=starttokenstream;
+const {signTransactionToken} = signtransactiontoken;
+const {rejectSignatureToken}=rejectsignaturetoken;
+const {pauseStreamToken}=pausestreamtoken;
+const {resumeStreamToken}=resumestreamtoken;
+const {cancelStreamToken}=cancelstreamtoken;
+const {withdrawStreamedBalanceToken}=withdrawstreamedbalancetoken;
 
 
 
@@ -32,7 +75,6 @@ const getProvider = async () => {
     window.open("https://phantom.app/", "_blank");
   }
 };
-
 
 module.exports.getProvider = getProvider;
 
@@ -52,5 +94,30 @@ module.exports.MultiTokenCancel = MultiTokenCancel;
 
 module.exports.withdrawNativeTokenDeposit = withdrawNativeTokenDeposit;
 module.exports.withdrawMultiTokenDeposit = withdrawMultiTokenDeposit;
-module.exports.constants = constants;
 
+module.exports.createVault = createVault;
+module.exports.cancelStreamMultiSig = cancelStreamMultiSig;
+module.exports.depositNativeVault = depositNativeVault;
+module.exports.instantSendNative = instantSendNative;
+module.exports.rejectInstantNative = rejectInstantNative;
+module.exports.pauseStreamMultisig = pauseStreamMultisig;
+module.exports.rejectSigStreamMultisig = rejectSigStreamMultisig;
+module.exports.resumeStreamMultisig = resumeStreamMultisig;
+module.exports.signInstantStreamNative = signInstantStreamNative;
+module.exports.signStream = signStream;
+module.exports.initStreamMultiSig = initStreamMultiSig;
+module.exports.withdrawStreamMultiSig = withdrawStreamMultiSig;
+
+module.exports.depositTokenVault=depositTokenVault;
+module.exports.startTokenStream=startTokenStream;
+module.exports.signTransactionToken=signTransactionToken;
+module.exports.rejectSignatureToken=rejectSignatureToken;
+module.exports.pauseStreamToken=pauseStreamToken;
+module.exports.resumeStreamtoken=resumeStreamToken;
+module.exports.cancelStreamToken=cancelStreamToken;
+module.exports.withdrawStreamedBalanceToken=withdrawStreamedBalanceToken;
+
+
+
+
+module.exports.constants = constants;

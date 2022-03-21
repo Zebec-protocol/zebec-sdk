@@ -45,7 +45,7 @@ export const DepositSolSchema = new Map([
 ]);
 
 export class Cancel {
-  constructor(args) {
+  constructor() {
     this.instruction = 2;
   }
 }
@@ -61,7 +61,7 @@ export const CancelSchema = new Map([
 ]);
 
 export class Pause {
-  constructor(args) {
+  constructor() {
     this.instruction = 4;
   }
 }
@@ -77,7 +77,7 @@ export const PauseSchema = new Map([
 ]);
 
 export class Resume {
-  constructor(args) {
+  constructor() {
     this.instruction = 5;
   }
 }
