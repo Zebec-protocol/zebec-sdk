@@ -9,7 +9,9 @@ The Zebec Protocol is not just limited to streamlined payments. On top of pay pe
 Devnet - AknC341xog56SrnoK6j3mUvaD1Y7tYayx1sxUGpeYWdX
 Mainnet - AknC341xog56SrnoK6j3mUvaD1Y7tYayx1sxUGpeYWdX
 
+# Latest version 
 
+https://www.npmjs.com/package/@zebec-protocol/stream
 
 # Install The Zebec Protocol js sdk
 
