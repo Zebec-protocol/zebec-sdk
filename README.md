@@ -15,7 +15,7 @@ https://www.npmjs.com/package/@zebec-protocol/stream
 
 # Install The Zebec Protocol js sdk
 
-Devet:
+Devnet:
 `$ npm i zebecprotocol-sdk @solana/web3.js buffer-layout @solana/spl-token` 
 
 Mainnet:
